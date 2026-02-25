@@ -4,53 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>STAGE — Series C</title>
-
-    <!-- Fonts: Clash Display (headlines) + Satoshi (body) via Fontshare -->
-    <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=clash-display@400;500;600;700&f[]=satoshi@400;500;700&display=swap">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
         /* ===========================================
-           THEME: STAGE Series C — Midnight Executive
-           Premium dark theme with STAGE red accent
+           THEME: STAGE VFinal — Light Executive
+           Montserrat + STAGE Red + White/Blush backgrounds
+           Matches the finalized Google Slides design
            =========================================== */
         :root {
-            /* Colors */
-            --bg-primary: #0B0D11;
-            --bg-secondary: #12151C;
-            --bg-card: #181C25;
-            --bg-card-hover: #1E222D;
-            --text-primary: #F5F5F7;
-            --text-secondary: #9CA3AF;
-            --text-muted: #6B7280;
-            --accent: #E10D38;
-            --accent-soft: rgba(225, 13, 56, 0.15);
-            --accent-glow: rgba(225, 13, 56, 0.3);
-            --green: #22C55E;
-            --green-soft: rgba(34, 197, 94, 0.15);
+            --red: #E10D38;
+            --red-soft: rgba(225, 13, 56, 0.08);
+            --red-softer: rgba(225, 13, 56, 0.04);
+            --dark: #1A1A2E;
+            --dark-secondary: #16213E;
+            --text-dark: #1A1A1A;
+            --text-body: #2C2C2C;
+            --text-secondary: #6B6B6B;
+            --text-muted: #9A9A9A;
+            --bg-white: #FFFFFF;
+            --bg-blush: #FDF5F3;
+            --bg-light: #F7F7F9;
+            --bg-card: #FFFFFF;
+            --border-light: rgba(0,0,0,0.06);
+            --green: #16A34A;
+            --green-soft: rgba(22, 163, 74, 0.08);
 
-            /* Typography */
-            --font-display: 'Clash Display', sans-serif;
-            --font-body: 'Satoshi', sans-serif;
-            --title-size: clamp(2rem, 5.5vw, 4.5rem);
-            --h2-size: clamp(1.5rem, 3.5vw, 2.75rem);
-            --h3-size: clamp(1rem, 2vw, 1.5rem);
-            --body-size: clamp(0.8rem, 1.3vw, 1.05rem);
-            --small-size: clamp(0.7rem, 1vw, 0.85rem);
-            --label-size: clamp(0.6rem, 0.9vw, 0.8rem);
+            --font: 'Montserrat', sans-serif;
+            --title-size: clamp(1.5rem, 3.5vw, 2.75rem);
+            --h3-size: clamp(0.9rem, 1.8vw, 1.3rem);
+            --body-size: clamp(0.75rem, 1.2vw, 1rem);
+            --small-size: clamp(0.65rem, 1vw, 0.85rem);
+            --label-size: clamp(0.55rem, 0.8vw, 0.72rem);
 
-            /* Spacing */
             --slide-padding: clamp(2rem, 5vw, 5rem);
-            --content-gap: clamp(1rem, 2.5vw, 2.5rem);
-            --element-gap: clamp(0.5rem, 1vw, 1rem);
+            --content-gap: clamp(0.8rem, 2vw, 2rem);
+            --element-gap: clamp(0.4rem, 1vw, 0.8rem);
 
-            /* Animation */
-            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-            --duration: 0.7s;
+            --ease: cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* ===========================================
-           BASE STYLES
-           =========================================== */
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         html {
@@ -61,16 +55,16 @@
         }
 
         body {
-            font-family: var(--font-body);
-            background: var(--bg-primary);
-            color: var(--text-primary);
+            font-family: var(--font);
+            background: var(--bg-white);
+            color: var(--text-dark);
             overflow-x: hidden;
             height: 100%;
             -webkit-font-smoothing: antialiased;
         }
 
         /* ===========================================
-           SLIDE CONTAINER
+           SLIDES
            =========================================== */
         .slide {
             width: 100vw;
@@ -94,42 +88,54 @@
             overflow: hidden;
         }
 
+        /* Background variants */
+        .bg-white { background: var(--bg-white); }
+        .bg-blush { background: var(--bg-blush); }
+        .bg-light { background: var(--bg-light); }
+        .bg-dark {
+            background: linear-gradient(160deg, #1A1A2E 0%, #16213E 50%, #1A1A2E 100%);
+            color: #FFFFFF;
+        }
+        .bg-dark .text-secondary,
+        .bg-dark .slide-subtitle,
+        .bg-dark p { color: rgba(255,255,255,0.7); }
+        .bg-dark .section-label { color: var(--red); }
+        .bg-dark .slide-footer { color: rgba(255,255,255,0.3); }
+
         /* ===========================================
            TYPOGRAPHY
            =========================================== */
         .section-label {
-            font-family: var(--font-body);
             font-size: var(--label-size);
             font-weight: 700;
             letter-spacing: 0.2em;
             text-transform: uppercase;
-            color: var(--accent);
-            margin-bottom: clamp(0.5rem, 1vw, 1rem);
+            color: var(--red);
+            margin-bottom: clamp(0.4rem, 0.8vw, 0.8rem);
         }
 
         .slide-title {
-            font-family: var(--font-display);
-            font-size: var(--h2-size);
-            font-weight: 600;
-            line-height: 1.15;
-            color: var(--text-primary);
-            margin-bottom: clamp(0.3rem, 0.8vw, 0.6rem);
+            font-size: var(--title-size);
+            font-weight: 700;
+            line-height: 1.2;
+            color: var(--text-dark);
         }
 
+        .bg-dark .slide-title { color: #FFFFFF; }
+
         .slide-subtitle {
-            font-family: var(--font-display);
-            font-size: clamp(1rem, 2vw, 1.5rem);
-            font-weight: 400;
+            font-size: clamp(0.85rem, 1.5vw, 1.15rem);
+            font-weight: 500;
             color: var(--text-secondary);
-            line-height: 1.3;
+            line-height: 1.4;
         }
 
         .divider {
             width: 80px;
             height: 4px;
-            background: var(--accent);
+            background: var(--red);
             border-radius: 2px;
-            margin: clamp(0.8rem, 1.5vw, 1.5rem) 0;
+            margin: clamp(0.6rem, 1.2vw, 1.2rem) 0;
         }
 
         /* ===========================================
@@ -147,137 +153,81 @@
             gap: clamp(0.5rem, 1.2vw, 1rem);
         }
 
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: clamp(0.5rem, 1.2vw, 1rem);
+        }
+
         .card {
             background: var(--bg-card);
-            border: 1px solid rgba(255,255,255,0.06);
-            border-radius: 12px;
-            padding: clamp(0.8rem, 1.5vw, 1.5rem);
+            border: 1px solid var(--border-light);
+            border-radius: 10px;
+            padding: clamp(0.7rem, 1.3vw, 1.3rem);
             position: relative;
-            overflow: hidden;
         }
 
-        .card-accent {
-            border-top: 3px solid var(--accent);
-        }
+        .card-accent { border-top: 3px solid var(--red); }
 
         .card .metric {
-            font-family: var(--font-display);
             font-size: clamp(1.5rem, 3vw, 2.5rem);
-            font-weight: 700;
-            color: var(--accent);
+            font-weight: 800;
+            color: var(--red);
             line-height: 1.1;
         }
 
         .card .metric-label {
             font-size: var(--small-size);
             color: var(--text-secondary);
-            margin-top: 0.3rem;
+            margin-top: 0.25rem;
+            font-weight: 500;
         }
 
         .card h3 {
-            font-family: var(--font-display);
             font-size: var(--h3-size);
-            font-weight: 600;
-            margin-bottom: 0.5rem;
+            font-weight: 700;
+            margin-bottom: 0.4rem;
+            color: var(--text-dark);
         }
 
         .card p, .card .body {
             font-size: var(--small-size);
             color: var(--text-secondary);
-            line-height: 1.5;
+            line-height: 1.55;
         }
+
+        .bg-light .card { background: var(--bg-white); }
+        .bg-blush .card { background: var(--bg-white); }
 
         /* ===========================================
-           SPECIFIC SLIDE TYPES
+           NUMBERED BELIEFS
            =========================================== */
-
-        /* Title Slide */
-        .title-slide {
-            background: linear-gradient(135deg, var(--bg-primary) 0%, #0F1219 50%, #131820 100%);
-        }
-
-        .title-slide .hero-title {
-            font-family: var(--font-display);
-            font-size: var(--title-size);
-            font-weight: 700;
-            line-height: 1.1;
-            max-width: 80%;
-        }
-
-        .title-slide .hero-title .accent {
-            color: var(--accent);
-        }
-
-        .title-slide .tagline {
-            font-size: var(--body-size);
-            color: var(--text-muted);
-            margin-top: clamp(1rem, 2vw, 2rem);
-            letter-spacing: 0.1em;
-        }
-
-        /* Closing Slide */
-        .closing-slide .lines {
-            display: flex;
-            flex-direction: column;
-            gap: clamp(0.3rem, 0.8vw, 0.8rem);
-        }
-
-        .closing-slide .line {
-            font-family: var(--font-display);
-            line-height: 1.3;
-        }
-
-        .closing-slide .line.large {
-            font-size: clamp(1.3rem, 2.8vw, 2.2rem);
-            font-weight: 600;
-        }
-
-        .closing-slide .line.medium {
-            font-size: clamp(1rem, 2vw, 1.5rem);
-            font-weight: 400;
-            color: var(--text-secondary);
-        }
-
-        .closing-slide .line.highlight {
-            font-size: clamp(1.3rem, 2.8vw, 2.2rem);
-            font-weight: 700;
-            color: var(--accent);
-        }
-
-        .closing-slide .thankyou {
-            font-size: var(--body-size);
-            color: var(--text-muted);
-            margin-top: clamp(1.5rem, 3vw, 3rem);
-        }
-
-        /* Numbered Points */
         .belief-item {
             display: flex;
             gap: clamp(0.5rem, 1vw, 1rem);
             align-items: flex-start;
-            padding: clamp(0.6rem, 1vw, 1rem) 0;
+            padding: clamp(0.5rem, 0.8vw, 0.8rem) 0;
         }
 
         .belief-num {
-            width: clamp(1.5rem, 2.5vw, 2.2rem);
-            height: clamp(1.5rem, 2.5vw, 2.2rem);
-            background: var(--accent);
+            width: clamp(1.5rem, 2.2vw, 2rem);
+            height: clamp(1.5rem, 2.2vw, 2rem);
+            background: var(--red);
             color: white;
-            border-radius: 6px;
+            border-radius: 5px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-family: var(--font-display);
             font-weight: 700;
             font-size: var(--small-size);
             flex-shrink: 0;
         }
 
         .belief-text h3 {
-            font-family: var(--font-display);
-            font-size: clamp(0.9rem, 1.5vw, 1.2rem);
-            font-weight: 600;
-            margin-bottom: 0.2rem;
+            font-size: clamp(0.85rem, 1.4vw, 1.1rem);
+            font-weight: 700;
+            margin-bottom: 0.15rem;
+            color: var(--text-dark);
         }
 
         .belief-text p {
@@ -285,100 +235,153 @@
             color: var(--text-secondary);
         }
 
-        /* Stacked bars (Problem slide) */
+        /* ===========================================
+           STACKED BARS (Problem slide)
+           =========================================== */
         .stack-bar {
             display: flex;
             align-items: center;
-            padding: clamp(0.4rem, 0.8vw, 0.7rem) clamp(0.6rem, 1vw, 1rem);
-            border-radius: 8px;
-            margin-bottom: clamp(0.2rem, 0.4vw, 0.4rem);
-            background: var(--bg-card);
+            padding: clamp(0.35rem, 0.7vw, 0.6rem) clamp(0.6rem, 1vw, 1rem);
+            border-radius: 6px;
+            margin-bottom: clamp(0.15rem, 0.3vw, 0.25rem);
+            background: var(--bg-light);
             border-left: 4px solid transparent;
         }
 
-        .stack-bar.barrier {
-            background: var(--accent-soft);
-            border-left-color: var(--accent);
-        }
+        .stack-bar.barrier { background: var(--red-soft); border-left-color: var(--red); }
+        .stack-bar.solution { background: var(--green-soft); border-left-color: var(--green); }
 
-        .stack-bar.solution {
-            background: var(--green-soft);
-            border-left-color: var(--green);
-        }
+        .stack-bar .bar-title { font-weight: 600; font-size: var(--small-size); }
+        .stack-bar .bar-desc { font-size: var(--label-size); color: var(--text-muted); margin-left: auto; padding-left: 1rem; }
 
-        .stack-bar .bar-title {
-            font-family: var(--font-display);
-            font-weight: 600;
-            font-size: var(--small-size);
-        }
-
-        .stack-bar .bar-desc {
-            font-size: var(--label-size);
-            color: var(--text-secondary);
-            margin-left: auto;
-        }
-
-        /* Timeline (Business Evolution) */
+        /* ===========================================
+           TIMELINE
+           =========================================== */
         .timeline {
             display: grid;
             grid-template-columns: repeat(6, 1fr);
-            gap: clamp(0.3rem, 0.6vw, 0.5rem);
+            gap: clamp(0.3rem, 0.5vw, 0.5rem);
         }
 
         .timeline-item {
-            background: var(--bg-card);
+            background: var(--bg-white);
+            border: 1px solid var(--border-light);
             border-radius: 8px;
-            padding: clamp(0.4rem, 0.8vw, 0.8rem);
+            padding: clamp(0.35rem, 0.7vw, 0.7rem);
             text-align: center;
-            border-top: 3px solid var(--accent);
+            border-top: 3px solid var(--red);
         }
 
-        .timeline-item .date {
-            font-size: var(--label-size);
-            color: var(--text-muted);
-            margin-bottom: 0.2rem;
-        }
+        .timeline-item .date { font-size: var(--label-size); color: var(--text-muted); margin-bottom: 0.15rem; }
+        .timeline-item .name { font-size: var(--small-size); font-weight: 700; margin-bottom: 0.2rem; }
+        .timeline-item .impact { font-size: var(--label-size); color: var(--red); font-weight: 600; }
 
-        .timeline-item .name {
-            font-family: var(--font-display);
-            font-size: var(--small-size);
-            font-weight: 600;
-            margin-bottom: 0.3rem;
-        }
-
-        .timeline-item .impact {
-            font-size: var(--label-size);
-            color: var(--accent);
-            font-weight: 600;
-        }
-
-        /* Table */
+        /* ===========================================
+           TABLE
+           =========================================== */
         .data-table {
             width: 100%;
             border-collapse: collapse;
         }
 
         .data-table th {
-            background: var(--accent);
+            background: var(--red);
             color: white;
-            font-family: var(--font-display);
             font-size: var(--small-size);
             font-weight: 600;
-            padding: clamp(0.3rem, 0.6vw, 0.6rem) clamp(0.5rem, 1vw, 1rem);
+            padding: clamp(0.3rem, 0.5vw, 0.5rem) clamp(0.5rem, 1vw, 1rem);
             text-align: left;
         }
 
         .data-table td {
             font-size: var(--small-size);
-            padding: clamp(0.3rem, 0.5vw, 0.5rem) clamp(0.5rem, 1vw, 1rem);
-            border-bottom: 1px solid rgba(255,255,255,0.06);
+            padding: clamp(0.3rem, 0.5vw, 0.45rem) clamp(0.5rem, 1vw, 1rem);
+            border-bottom: 1px solid var(--border-light);
         }
 
-        .data-table tr:nth-child(even) {
-            background: rgba(255,255,255,0.02);
+        .data-table tr:nth-child(even) { background: var(--bg-light); }
+
+        /* ===========================================
+           CALLOUT
+           =========================================== */
+        .callout {
+            background: var(--red-soft);
+            border-left: 3px solid var(--red);
+            padding: clamp(0.5rem, 0.8vw, 0.8rem) clamp(0.6rem, 1vw, 1rem);
+            border-radius: 0 8px 8px 0;
+            font-size: var(--small-size);
+            color: var(--text-body);
         }
 
-        /* Comparison (vs) */
+        .callout strong { color: var(--red); }
+
+        /* ===========================================
+           PIPELINE
+           =========================================== */
+        .pipeline {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0;
+        }
+
+        .pipeline-step {
+            background: var(--bg-white);
+            border: 1px solid var(--border-light);
+            padding: clamp(0.25rem, 0.5vw, 0.5rem) clamp(0.4rem, 0.8vw, 0.8rem);
+            border-radius: 6px;
+            font-size: var(--small-size);
+            text-align: center;
+            border-top: 2px solid var(--red);
+        }
+
+        .pipeline-arrow { color: var(--red); font-size: var(--body-size); padding: 0 clamp(0.1rem, 0.2vw, 0.2rem); }
+
+        /* ===========================================
+           TEAM
+           =========================================== */
+        .team-card { text-align: center; }
+
+        .team-avatar {
+            width: clamp(2rem, 3.5vw, 3.2rem);
+            height: clamp(2rem, 3.5vw, 3.2rem);
+            background: var(--red);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: var(--small-size);
+            margin: 0 auto clamp(0.2rem, 0.4vw, 0.4rem);
+        }
+
+        .team-card .name { font-weight: 700; font-size: var(--small-size); }
+        .team-card .role { font-size: var(--label-size); color: var(--red); font-weight: 600; }
+        .team-card .desc { font-size: var(--label-size); color: var(--text-secondary); margin-top: 0.15rem; line-height: 1.4; }
+
+        /* ===========================================
+           MILESTONES
+           =========================================== */
+        .milestone {
+            display: flex;
+            align-items: center;
+            gap: clamp(0.3rem, 0.5vw, 0.5rem);
+            padding: clamp(0.2rem, 0.4vw, 0.35rem) 0;
+            font-size: var(--small-size);
+        }
+
+        .milestone .check {
+            width: 16px; height: 16px;
+            border: 2px solid var(--red);
+            border-radius: 3px;
+            flex-shrink: 0;
+        }
+
+        /* ===========================================
+           VS GRID
+           =========================================== */
         .vs-grid {
             display: grid;
             grid-template-columns: 1fr auto 1fr;
@@ -386,110 +389,11 @@
             align-items: center;
         }
 
-        .vs-divider {
-            font-family: var(--font-display);
-            font-weight: 700;
-            font-size: var(--h3-size);
-            color: var(--accent);
-            text-align: center;
-        }
+        .vs-divider { font-weight: 800; font-size: var(--h3-size); color: var(--red); text-align: center; }
 
-        /* Pipeline */
-        .pipeline {
-            display: flex;
-            gap: 0;
-            align-items: center;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .pipeline-step {
-            background: var(--bg-card);
-            padding: clamp(0.3rem, 0.6vw, 0.6rem) clamp(0.5rem, 1vw, 1rem);
-            border-radius: 6px;
-            font-size: var(--small-size);
-            text-align: center;
-            border-top: 2px solid var(--accent);
-        }
-
-        .pipeline-arrow {
-            color: var(--accent);
-            font-size: var(--body-size);
-            padding: 0 clamp(0.1rem, 0.3vw, 0.3rem);
-        }
-
-        /* Team cards */
-        .team-card {
-            text-align: center;
-        }
-
-        .team-avatar {
-            width: clamp(2rem, 3.5vw, 3.5rem);
-            height: clamp(2rem, 3.5vw, 3.5rem);
-            background: var(--accent);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: var(--font-display);
-            font-weight: 700;
-            font-size: var(--small-size);
-            margin: 0 auto clamp(0.3rem, 0.5vw, 0.5rem);
-        }
-
-        .team-card .name {
-            font-family: var(--font-display);
-            font-weight: 600;
-            font-size: var(--small-size);
-        }
-
-        .team-card .role {
-            font-size: var(--label-size);
-            color: var(--accent);
-            font-weight: 600;
-        }
-
-        .team-card .desc {
-            font-size: var(--label-size);
-            color: var(--text-secondary);
-            margin-top: 0.2rem;
-            line-height: 1.4;
-        }
-
-        /* Milestones */
-        .milestone {
-            display: flex;
-            align-items: center;
-            gap: clamp(0.3rem, 0.6vw, 0.6rem);
-            padding: clamp(0.3rem, 0.5vw, 0.5rem) 0;
-            font-size: var(--small-size);
-        }
-
-        .milestone .check {
-            width: 18px;
-            height: 18px;
-            border: 2px solid var(--accent);
-            border-radius: 4px;
-            flex-shrink: 0;
-        }
-
-        /* Callout */
-        .callout {
-            background: var(--accent-soft);
-            border-left: 3px solid var(--accent);
-            padding: clamp(0.5rem, 1vw, 1rem) clamp(0.8rem, 1.2vw, 1.2rem);
-            border-radius: 0 8px 8px 0;
-            font-size: var(--small-size);
-            color: var(--text-secondary);
-            margin-top: var(--element-gap);
-        }
-
-        .callout strong {
-            color: var(--text-primary);
-        }
-
-        /* Footer */
+        /* ===========================================
+           FOOTER
+           =========================================== */
         .slide-footer {
             position: absolute;
             bottom: clamp(0.5rem, 1vw, 1rem);
@@ -498,19 +402,6 @@
             color: var(--text-muted);
             display: flex;
             gap: 1rem;
-            align-items: center;
-        }
-
-        /* Subtle grid bg */
-        .slide::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background-image:
-                linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
-            background-size: 60px 60px;
-            pointer-events: none;
         }
 
         /* ===========================================
@@ -518,15 +409,11 @@
            =========================================== */
         .reveal {
             opacity: 0;
-            transform: translateY(20px);
-            transition: opacity var(--duration) var(--ease-out-expo),
-                        transform var(--duration) var(--ease-out-expo);
+            transform: translateY(18px);
+            transition: opacity 0.65s var(--ease), transform 0.65s var(--ease);
         }
 
-        .slide.visible .reveal {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        .slide.visible .reveal { opacity: 1; transform: translateY(0); }
 
         .reveal:nth-child(1) { transition-delay: 0.05s; }
         .reveal:nth-child(2) { transition-delay: 0.12s; }
@@ -535,64 +422,45 @@
         .reveal:nth-child(5) { transition-delay: 0.33s; }
         .reveal:nth-child(6) { transition-delay: 0.40s; }
         .reveal:nth-child(7) { transition-delay: 0.47s; }
+        .reveal:nth-child(8) { transition-delay: 0.54s; }
 
         /* Progress bar */
-        .progress-bar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 3px;
-            background: var(--accent);
-            z-index: 100;
-            transition: width 0.3s ease;
-        }
+        .progress-bar { position: fixed; top: 0; left: 0; height: 3px; background: var(--red); z-index: 100; transition: width 0.3s ease; }
 
         /* Nav dots */
         .nav-dots {
-            position: fixed;
-            right: clamp(0.5rem, 1vw, 1.5rem);
-            top: 50%;
-            transform: translateY(-50%);
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            z-index: 100;
+            position: fixed; right: clamp(0.5rem, 1vw, 1.2rem); top: 50%; transform: translateY(-50%);
+            display: flex; flex-direction: column; gap: 5px; z-index: 100;
         }
 
         .nav-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.15);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: none;
-            padding: 0;
+            width: 7px; height: 7px; border-radius: 50%; background: rgba(0,0,0,0.12);
+            cursor: pointer; transition: all 0.3s ease; border: none; padding: 0;
         }
 
-        .nav-dot.active {
-            background: var(--accent);
-            transform: scale(1.3);
-        }
+        .nav-dot.active { background: var(--red); transform: scale(1.4); }
+
+        .bg-dark ~ .nav-dots .nav-dot { background: rgba(255,255,255,0.2); }
 
         /* ===========================================
            RESPONSIVE
            =========================================== */
         @media (max-width: 768px) {
-            .grid-3 { grid-template-columns: repeat(2, 1fr); }
+            .grid-3, .grid-4 { grid-template-columns: repeat(2, 1fr); }
             .timeline { grid-template-columns: repeat(3, 1fr); }
             .nav-dots { display: none; }
+            .vs-grid { grid-template-columns: 1fr; }
+            .vs-divider { transform: rotate(90deg); }
         }
 
         @media (max-width: 500px) {
-            .grid-3 { grid-template-columns: 1fr; }
-            .grid-2 { grid-template-columns: 1fr; }
+            .grid-3, .grid-2 { grid-template-columns: 1fr; }
         }
 
         @media (max-height: 600px) {
             :root {
                 --slide-padding: clamp(1rem, 3vw, 2rem);
-                --content-gap: clamp(0.5rem, 1.5vw, 1rem);
+                --content-gap: clamp(0.4rem, 1vw, 0.8rem);
             }
             .nav-dots { display: none; }
         }
@@ -601,6 +469,34 @@
             .reveal { transition: opacity 0.3s ease; transform: none; }
             html { scroll-behavior: auto; }
         }
+
+        /* ===========================================
+           TITLE SLIDE SPECIFIC
+           =========================================== */
+        .title-slide .hero-title {
+            font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: 800;
+            line-height: 1.1;
+            color: #FFFFFF;
+        }
+
+        .title-slide .hero-title .accent { color: var(--red); }
+
+        .title-slide .tagline {
+            font-size: var(--body-size);
+            color: rgba(255,255,255,0.4);
+            margin-top: clamp(1rem, 2vw, 2rem);
+            letter-spacing: 0.1em;
+            font-weight: 500;
+        }
+
+        /* Closing slide */
+        .closing-slide .lines { display: flex; flex-direction: column; gap: clamp(0.2rem, 0.6vw, 0.6rem); }
+        .closing-slide .line { line-height: 1.3; }
+        .closing-slide .line.large { font-size: clamp(1.2rem, 2.5vw, 2rem); font-weight: 700; color: #FFFFFF; }
+        .closing-slide .line.medium { font-size: clamp(0.9rem, 1.8vw, 1.3rem); font-weight: 400; color: rgba(255,255,255,0.6); }
+        .closing-slide .line.highlight { font-size: clamp(1.2rem, 2.5vw, 2rem); font-weight: 800; color: var(--red); }
+        .closing-slide .thankyou { font-size: var(--body-size); color: rgba(255,255,255,0.3); margin-top: clamp(1rem, 2vw, 2rem); }
     </style>
 </head>
 <body>
@@ -608,35 +504,24 @@
 <div class="progress-bar" id="progressBar"></div>
 <nav class="nav-dots" id="navDots"></nav>
 
-<!-- ============================================
-     SLIDE 1: TITLE
-     ============================================ -->
-<section class="slide title-slide" style="background: linear-gradient(160deg, #0B0D11 0%, #131820 40%, #0B0D11 100%);">
+<!-- SLIDE 1: TITLE -->
+<section class="slide bg-dark title-slide">
     <div class="slide-content">
-        <div style="margin-bottom: clamp(1rem, 2vw, 2rem);">
-            <svg width="120" height="32" viewBox="0 0 120 32" fill="none">
-                <rect width="28" height="28" rx="6" fill="#E10D38" y="2"/>
-                <text x="7" y="22" font-family="Clash Display, sans-serif" font-weight="700" font-size="18" fill="white">S</text>
-                <text x="36" y="24" font-family="Clash Display, sans-serif" font-weight="600" font-size="22" fill="white">STAGE</text>
-            </svg>
+        <div class="reveal" style="margin-bottom: clamp(1rem, 2vw, 2rem);">
+            <svg width="110" height="30" viewBox="0 0 110 30"><rect width="26" height="26" rx="5" fill="#E10D38" y="2"/><text x="6" y="20" font-family="Montserrat,sans-serif" font-weight="800" font-size="16" fill="white">S</text><text x="33" y="22" font-family="Montserrat,sans-serif" font-weight="700" font-size="20" fill="white">STAGE</text></svg>
         </div>
-        <h1 class="hero-title reveal">
-            AI-Native Entertainment<br>for Every Human,<br>in <span class="accent">Their Culture.</span>
-        </h1>
+        <h1 class="hero-title reveal">AI-Native Entertainment<br>for Every Human,<br>in <span class="accent">Their Culture.</span></h1>
         <p class="tagline reveal">Series C · Confidential · February 2026</p>
     </div>
 </section>
 
-<!-- ============================================
-     SLIDE 2: WHAT YOU NEED TO BELIEVE
-     ============================================ -->
-<section class="slide">
+<!-- SLIDE 2: WHAT YOU NEED TO BELIEVE -->
+<section class="slide bg-white">
     <div class="slide-content">
         <span class="section-label reveal">What You Need to Believe</span>
         <h2 class="slide-title reveal">Three things. If you believe them,<br>everything else follows.</h2>
         <div class="divider reveal"></div>
-
-        <div style="display:flex; flex-direction:column; gap: clamp(0.3rem, 0.6vw, 0.5rem); margin-top: var(--element-gap);">
+        <div style="display:flex; flex-direction:column; gap: var(--element-gap); margin-top: var(--element-gap);">
             <div class="belief-item reveal">
                 <div class="belief-num">1</div>
                 <div class="belief-text">
@@ -663,211 +548,118 @@
     <div class="slide-footer">Private & Confidential <span>2</span></div>
 </section>
 
-<!-- ============================================
-     SLIDE 3: TRACTION
-     ============================================ -->
-<section class="slide">
+<!-- SLIDE 3: TRACTION -->
+<section class="slide bg-blush">
     <div class="slide-content">
         <span class="section-label reveal">Traction</span>
         <h2 class="slide-title reveal">₹171.5 Crore ARR.<br>Two profitable markets.</h2>
         <div class="divider reveal"></div>
-
         <div class="grid-3 reveal" style="margin-top: var(--element-gap);">
-            <div class="card card-accent">
-                <div class="metric">₹171.5Cr</div>
-                <div class="metric-label">Annualized Recurring Revenue</div>
-            </div>
-            <div class="card card-accent">
-                <div class="metric">1.85M</div>
-                <div class="metric-label">Paying Subscribers</div>
-            </div>
-            <div class="card card-accent">
-                <div class="metric">2 of 4</div>
-                <div class="metric-label">Markets Profitable</div>
-            </div>
+            <div class="card card-accent"><div class="metric">₹171.5Cr</div><div class="metric-label">Annualized Recurring Revenue</div></div>
+            <div class="card card-accent"><div class="metric">1.85M</div><div class="metric-label">Paying Subscribers</div></div>
+            <div class="card card-accent"><div class="metric">2 of 4</div><div class="metric-label">Markets Profitable</div></div>
         </div>
-        <div class="grid-3 reveal" style="margin-top: clamp(0.3rem, 0.6vw, 0.5rem);">
-            <div class="card card-accent">
-                <div class="metric">92%</div>
-                <div class="metric-label">Weekly Series Return Rate</div>
-            </div>
-            <div class="card card-accent">
-                <div class="metric" style="color: var(--text-muted);">[X]x</div>
-                <div class="metric-label">LTV/CAC (Haryanvi)</div>
-            </div>
-            <div class="card card-accent">
-                <div class="metric" style="color: var(--text-muted);">[TBD]</div>
-                <div class="metric-label">Key Engagement Metric</div>
-            </div>
+        <div class="grid-3 reveal" style="margin-top: clamp(0.3rem, 0.5vw, 0.5rem);">
+            <div class="card card-accent"><div class="metric">92%</div><div class="metric-label">Weekly Series Return Rate</div></div>
+            <div class="card card-accent"><div class="metric" style="color:var(--text-muted);">[X]x</div><div class="metric-label">LTV/CAC (Haryanvi)</div></div>
+            <div class="card card-accent"><div class="metric" style="color:var(--text-muted);">[TBD]</div><div class="metric-label">Key Engagement Metric</div></div>
         </div>
     </div>
     <div class="slide-footer">Private & Confidential <span>3</span></div>
 </section>
 
-<!-- ============================================
-     SLIDE 4: THE OPPORTUNITY
-     ============================================ -->
-<section class="slide">
+<!-- SLIDE 4: THE OPPORTUNITY -->
+<section class="slide bg-blush">
     <div class="slide-content">
         <span class="section-label reveal">The Opportunity</span>
         <h2 class="slide-title reveal">1.5 Billion people.<br>No entertainment for their culture.</h2>
         <div class="divider reveal"></div>
-
-        <div class="grid-2 reveal" style="margin-top: var(--element-gap); align-items: center;">
+        <div class="grid-2 reveal" style="margin-top: var(--element-gap); align-items:center;">
             <div>
-                <p style="font-size: var(--body-size); color: var(--text-secondary); line-height:1.6; margin-bottom: var(--element-gap);">
-                    Cultural identity transcends socioeconomic status. Distinct cultures. Distinct identities. Distinct entertainment needs.
-                </p>
-                <div class="callout">
-                    <strong style="color: var(--accent);">54%</strong> of subscribers had never paid for any OTT before. <strong>New spend, not stolen share.</strong>
-                </div>
+                <p style="font-size:var(--body-size); color:var(--text-secondary); line-height:1.6; margin-bottom:var(--element-gap);">Cultural identity transcends socioeconomic status. Distinct cultures. Distinct identities. Distinct entertainment needs.</p>
+                <div class="callout"><strong>54%</strong> of subscribers had never paid for any OTT before. <strong>New spend, not stolen share.</strong></div>
             </div>
-            <div style="display:flex; flex-direction:column; gap: clamp(0.3rem, 0.5vw, 0.5rem);">
-                <div class="card" style="opacity:0.5; padding: clamp(0.4rem, 0.8vw, 0.7rem);">
-                    <div style="font-size: var(--small-size); font-weight:600;">Netflix / JioHotstar</div>
-                    <div style="font-size: var(--label-size); color: var(--text-muted);">Premium · Hindi & English</div>
-                </div>
-                <div class="card" style="border: 2px solid var(--accent); padding: clamp(0.5rem, 1vw, 1rem);">
-                    <div style="font-family: var(--font-display); font-size: var(--h3-size); font-weight:700; color: var(--accent);">STAGE</div>
-                    <div style="font-size: var(--small-size); color: var(--text-secondary);">₹38,000 Cr market · 22 languages</div>
-                </div>
-                <div class="card" style="opacity:0.5; padding: clamp(0.4rem, 0.8vw, 0.7rem);">
-                    <div style="font-size: var(--small-size); font-weight:600;">YouTube</div>
-                    <div style="font-size: var(--label-size); color: var(--text-muted);">Free · UGC · Low production</div>
-                </div>
+            <div style="display:flex; flex-direction:column; gap:clamp(0.3rem,0.5vw,0.5rem);">
+                <div class="card" style="opacity:0.5; padding:clamp(0.3rem,0.6vw,0.6rem) clamp(0.5rem,1vw,1rem);"><div style="font-size:var(--small-size); font-weight:600;">Netflix / JioHotstar</div><div style="font-size:var(--label-size); color:var(--text-muted);">Premium · Hindi & English</div></div>
+                <div class="card" style="border:2px solid var(--red); padding:clamp(0.5rem,1vw,1rem);"><div style="font-size:var(--h3-size); font-weight:800; color:var(--red);">STAGE</div><div style="font-size:var(--small-size); color:var(--text-secondary);">₹38,000 Cr market · 22 languages</div></div>
+                <div class="card" style="opacity:0.5; padding:clamp(0.3rem,0.6vw,0.6rem) clamp(0.5rem,1vw,1rem);"><div style="font-size:var(--small-size); font-weight:600;">YouTube</div><div style="font-size:var(--label-size); color:var(--text-muted);">Free · UGC · Low production</div></div>
             </div>
         </div>
     </div>
     <div class="slide-footer">Private & Confidential <span>4</span></div>
 </section>
 
-<!-- ============================================
-     SLIDE 5: THE PROBLEM
-     ============================================ -->
-<section class="slide">
+<!-- SLIDE 5: THE PROBLEM -->
+<section class="slide bg-white">
     <div class="slide-content">
         <span class="section-label reveal">The Problem</span>
         <h2 class="slide-title reveal">A structural cost problem.<br>Not a strategic choice.</h2>
         <div class="divider reveal"></div>
-
-        <div style="display:flex; flex-direction:column; gap: clamp(0.2rem, 0.4vw, 0.3rem); margin-top: var(--element-gap);">
-            <div class="stack-bar reveal">
-                <span class="bar-title">Traditional IP: ₹X Crore per title</span>
-                <span class="bar-desc">Must amortize across largest audience</span>
-            </div>
-            <div class="stack-bar reveal">
-                <span class="bar-title">→ Hindi (500M speakers)</span>
-                <span class="bar-desc">Established ecosystem</span>
-            </div>
-            <div class="stack-bar reveal">
-                <span class="bar-title">→ Tamil, Telugu</span>
-                <span class="bar-desc">Large audiences, existing studios</span>
-            </div>
-            <div class="stack-bar barrier reveal">
-                <span class="bar-title" style="color: var(--accent);">COST BARRIER</span>
-                <span class="bar-desc">Haryanvi? Bhojpuri? Rajasthani? — No studios. No economics.</span>
-            </div>
-            <div class="stack-bar solution reveal">
-                <span class="bar-title" style="color: var(--green);">STAGE built it from scratch</span>
-                <span class="bar-desc">Markets that didn't exist. Now AI changes economics.</span>
-            </div>
+        <div style="display:flex; flex-direction:column; gap:clamp(0.15rem,0.3vw,0.25rem); margin-top:var(--element-gap);">
+            <div class="stack-bar reveal"><span class="bar-title">Traditional IP: ₹X Crore per title</span><span class="bar-desc">Must amortize across largest audience</span></div>
+            <div class="stack-bar reveal"><span class="bar-title">→ Hindi (500M speakers)</span><span class="bar-desc">Established ecosystem</span></div>
+            <div class="stack-bar reveal"><span class="bar-title">→ Tamil, Telugu</span><span class="bar-desc">Large audiences, existing studios</span></div>
+            <div class="stack-bar barrier reveal"><span class="bar-title" style="color:var(--red);">COST BARRIER</span><span class="bar-desc">Haryanvi? Bhojpuri? Rajasthani? — No economics.</span></div>
+            <div class="stack-bar solution reveal"><span class="bar-title" style="color:var(--green);">STAGE built it from scratch</span><span class="bar-desc">Now AI changes economics.</span></div>
         </div>
     </div>
     <div class="slide-footer">Private & Confidential <span>5</span></div>
 </section>
 
-<!-- ============================================
-     SLIDE 6: WHAT WE BUILT
-     ============================================ -->
-<section class="slide">
+<!-- SLIDE 6: WHAT WE BUILT -->
+<section class="slide bg-light">
     <div class="slide-content">
         <span class="section-label reveal">What We Built</span>
         <h2 class="slide-title reveal">Productising the cultures.<br>One IP, every community.</h2>
         <div class="divider reveal"></div>
-
-        <div class="grid-3 reveal" style="margin-top: var(--element-gap);">
+        <div class="grid-3 reveal" style="margin-top:var(--element-gap);">
             <div class="card card-accent">
                 <h3>The IP Engine</h3>
-                <p class="body">Long Series · Micro Dramas · Films<br><br>Produce once → Adapt to 14+ cultures<br><br>₹8,000/episode adaptation</p>
-                <div style="margin-top: auto; padding-top: 0.5rem; font-size: var(--label-size); color: var(--accent); font-weight:600;">Every IP is multi-cultural from day one</div>
+                <p class="body">Long Series · Micro Dramas · Films<br><br>Produce once → Adapt to 14+ cultures<br>₹8,000/episode adaptation</p>
+                <div style="margin-top:0.5rem; font-size:var(--label-size); color:var(--red); font-weight:600;">Every IP is multi-cultural from day one</div>
             </div>
             <div class="card card-accent">
                 <h3>Distribution</h3>
-                <p class="body">AI personalization → tailored discovery<br><br>Character Bots → 40% higher D1<br><br>New form factors extending engagement</p>
-                <div style="margin-top: auto; padding-top: 0.5rem; font-size: var(--label-size); color: var(--accent); font-weight:600;">We distribute culture, not just content</div>
+                <p class="body">AI personalization → tailored discovery<br><br>Character Bots → 40% higher D1<br>New form factors</p>
+                <div style="margin-top:0.5rem; font-size:var(--label-size); color:var(--red); font-weight:600;">We distribute culture, not just content</div>
             </div>
             <div class="card card-accent">
                 <h3>The Playbook</h3>
-                <p class="body">4 live markets<br><br>90%+ premium cultural IP in pioneers<br><br>Built the industry from scratch</p>
-                <div style="margin-top: auto; padding-top: 0.5rem; font-size: var(--label-size); color: var(--accent); font-weight:600;">Haryanvi ✓ Rajasthani ✓ Bhojpuri ✓ Gujarati ✓</div>
+                <p class="body">4 live markets<br><br>90%+ premium cultural IP in pioneers<br>Built the industry from scratch</p>
+                <div style="margin-top:0.5rem; font-size:var(--label-size); color:var(--red); font-weight:600;">Haryanvi ✓ Rajasthani ✓ Bhojpuri ✓ Gujarati ✓</div>
             </div>
         </div>
     </div>
     <div class="slide-footer">Private & Confidential <span>6</span></div>
 </section>
 
-<!-- ============================================
-     SLIDE 7: BUSINESS EVOLUTION
-     ============================================ -->
-<section class="slide">
+<!-- SLIDE 7: BUSINESS EVOLUTION -->
+<section class="slide bg-white">
     <div class="slide-content">
         <span class="section-label reveal">Business Evolution</span>
         <h2 class="slide-title reveal">How we evolved the business.<br>And why it matters.</h2>
         <div class="divider reveal"></div>
-
-        <div class="timeline reveal" style="margin-top: var(--element-gap);">
-            <div class="timeline-item">
-                <div class="date">Jan 25</div>
-                <div class="name">Series B</div>
-                <div class="impact">Stopped marketing</div>
-            </div>
-            <div class="timeline-item">
-                <div class="date">May 25</div>
-                <div class="name">Long Series</div>
-                <div class="impact">2.3x LTV</div>
-            </div>
-            <div class="timeline-item">
-                <div class="date">2025</div>
-                <div class="name">Micro Dramas</div>
-                <div class="impact">3x D30 retention</div>
-            </div>
-            <div class="timeline-item">
-                <div class="date">2025</div>
-                <div class="name">Personalization</div>
-                <div class="impact">20%↑ consumption</div>
-            </div>
-            <div class="timeline-item">
-                <div class="date">2025</div>
-                <div class="name">Character Bots</div>
-                <div class="impact">40%↑ D1 retention</div>
-            </div>
-            <div class="timeline-item">
-                <div class="date">2025</div>
-                <div class="name">Player+Hooks</div>
-                <div class="impact">Completion ↑</div>
-            </div>
+        <div class="timeline reveal" style="margin-top:var(--element-gap);">
+            <div class="timeline-item"><div class="date">Jan 25</div><div class="name">Series B</div><div class="impact">Stopped marketing</div></div>
+            <div class="timeline-item"><div class="date">May 25</div><div class="name">Long Series</div><div class="impact">2.3x LTV</div></div>
+            <div class="timeline-item"><div class="date">2025</div><div class="name">Micro Dramas</div><div class="impact">3x D30 retention</div></div>
+            <div class="timeline-item"><div class="date">2025</div><div class="name">Personalization</div><div class="impact">20%↑ consumption</div></div>
+            <div class="timeline-item"><div class="date">2025</div><div class="name">Character Bots</div><div class="impact">40%↑ D1 retention</div></div>
+            <div class="timeline-item"><div class="date">2025</div><div class="name">Player+Hooks</div><div class="impact">Completion ↑</div></div>
         </div>
-
-        <div class="callout reveal" style="margin-top: var(--element-gap);">
-            <strong>Renewal rates climb each cycle:</strong> [X]% at R1 → [Y]% by R6. The habit deepens over time. The opposite of most entertainment platforms.
-        </div>
+        <div class="callout reveal" style="margin-top:var(--element-gap);"><strong>Renewal rates climb each cycle:</strong> [X]% at R1 → [Y]% by R6. The habit deepens. The opposite of most entertainment platforms.</div>
     </div>
     <div class="slide-footer">Private & Confidential <span>7</span></div>
 </section>
 
-<!-- ============================================
-     SLIDE 8: THE PLAYBOOK REPEATS
-     ============================================ -->
-<section class="slide">
+<!-- SLIDE 8: PLAYBOOK REPEATS -->
+<section class="slide bg-light">
     <div class="slide-content">
         <span class="section-label reveal">The Playbook Repeats</span>
         <h2 class="slide-title reveal">23 → 16 → 12 months.<br>Each market faster than the last.</h2>
         <div class="divider reveal"></div>
-
-        <table class="data-table reveal" style="margin-top: var(--element-gap);">
-            <thead>
-                <tr><th>Milestone</th><th>Haryanvi</th><th>Rajasthani</th><th>Bhojpuri</th><th>Gujarati</th></tr>
-            </thead>
+        <table class="data-table reveal" style="margin-top:var(--element-gap);">
+            <thead><tr><th>Milestone</th><th>Haryanvi</th><th>Rajasthani</th><th>Bhojpuri</th><th>Gujarati</th></tr></thead>
             <tbody>
                 <tr><td>Time to [X]K subs</td><td>[X] mo</td><td>[X] mo</td><td>[X] mo</td><td>[X] mo</td></tr>
                 <tr><td>CAC below ₹[X]</td><td>[X] mo</td><td>[X] mo</td><td>[X] mo</td><td>[X] mo</td></tr>
@@ -875,50 +667,41 @@
                 <tr><td>Path to profit</td><td>23 mo ✓</td><td>16 mo ✓</td><td>~12 mo</td><td>Early</td></tr>
             </tbody>
         </table>
-
-        <div class="callout reveal" style="margin-top: var(--element-gap);">
-            With AI cultural adaptation, <strong>next markets launch with entire library on day one.</strong>
-        </div>
+        <div class="callout reveal" style="margin-top:var(--element-gap);">With AI cultural adaptation, <strong>next markets launch with entire library on day one.</strong></div>
     </div>
     <div class="slide-footer">Private & Confidential <span>8</span></div>
 </section>
 
-<!-- ============================================
-     SLIDE 9: AI-NATIVE TRANSFORMATION
-     ============================================ -->
-<section class="slide">
+<!-- SLIDE 9: AI-NATIVE TRANSFORMATION -->
+<section class="slide bg-dark">
     <div class="slide-content">
         <span class="section-label reveal">AI-Native Transformation</span>
         <h2 class="slide-title reveal">Transforming STAGE<br>into an AI-native business.</h2>
         <div class="divider reveal"></div>
-
-        <div class="vs-grid reveal" style="margin-top: var(--content-gap);">
-            <div class="card">
-                <h3 style="margin-bottom: 0.5rem;">Strong Business</h3>
-                <p class="body" style="line-height:1.6;">✓ 2 profitable markets<br>✓ Repeatable playbook<br>✓ Growing retention</p>
-                <div style="margin-top: 0.8rem; font-size: var(--small-size); color: var(--text-muted); font-style:italic;">But: linear scaling. Each market = new content + team.</div>
+        <div class="vs-grid reveal" style="margin-top:var(--content-gap);">
+            <div class="card" style="background:rgba(255,255,255,0.05); border-color:rgba(255,255,255,0.1);">
+                <h3 style="color:#fff;">Strong Business</h3>
+                <p style="color:rgba(255,255,255,0.6); line-height:1.6;">✓ 2 profitable markets<br>✓ Repeatable playbook<br>✓ Growing retention</p>
+                <div style="margin-top:0.6rem; font-size:var(--small-size); color:rgba(255,255,255,0.4); font-style:italic;">But: linear scaling. Each market = new content + team.</div>
             </div>
             <div class="vs-divider">→</div>
-            <div class="card" style="border: 1px solid var(--accent);">
-                <h3 style="margin-bottom: 0.5rem; color: var(--accent);">AI-Native Architecture</h3>
-                <p class="body" style="line-height:1.6;">⚡ Creation, adaptation, distribution — all AI<br>⚡ One insight → 14 cultures<br>⚡ Team doesn't scale linearly</p>
-                <div style="margin-top: 0.8rem; font-size: var(--small-size); color: var(--accent); font-weight:600;">4 → 14 markets. No proportional cost increase.</div>
+            <div class="card" style="background:rgba(225,13,56,0.1); border-color:var(--red);">
+                <h3 style="color:var(--red);">AI-Native Architecture</h3>
+                <p style="color:rgba(255,255,255,0.7); line-height:1.6;">⚡ Creation, adaptation, distribution — all AI<br>⚡ One insight → 14 cultures<br>⚡ Team doesn't scale linearly</p>
+                <div style="margin-top:0.6rem; font-size:var(--small-size); color:var(--red); font-weight:600;">4 → 14 markets. No proportional cost increase.</div>
             </div>
         </div>
     </div>
     <div class="slide-footer">Private & Confidential <span>9</span></div>
 </section>
 
-<!-- ============================================
-     SLIDE 10: AGENTIC IP CREATION
-     ============================================ -->
-<section class="slide">
+<!-- SLIDE 10: AGENTIC IP CREATION -->
+<section class="slide bg-white">
     <div class="slide-content">
         <span class="section-label reveal">Agentic IP Creation</span>
         <h2 class="slide-title reveal">From idea to screen.<br>No camera. No crew. Full AI.</h2>
         <div class="divider reveal"></div>
-
-        <div class="pipeline reveal" style="margin-top: var(--content-gap);">
+        <div class="pipeline reveal" style="margin-top:var(--content-gap);">
             <div class="pipeline-step">💡 Ideation</div><span class="pipeline-arrow">→</span>
             <div class="pipeline-step">📖 Story</div><span class="pipeline-arrow">→</span>
             <div class="pipeline-step">👤 Characters</div><span class="pipeline-arrow">→</span>
@@ -926,332 +709,183 @@
             <div class="pipeline-step">🎨 Storyboard</div><span class="pipeline-arrow">→</span>
             <div class="pipeline-step">🎬 Production</div>
         </div>
-
-        <div class="grid-3 reveal" style="margin-top: var(--content-gap);">
-            <div class="card" style="text-align:center; opacity:0.6;">
-                <div style="font-size: var(--small-size); font-weight:600; margin-bottom:0.3rem;">Traditional</div>
-                <div style="font-size: var(--label-size); color: var(--text-muted);">[X] months · [Y]-person crew · ₹[Z] crore</div>
-            </div>
-            <div style="display:flex; align-items:center; justify-content:center; font-size: var(--h3-size); color: var(--accent); font-weight:700;">vs</div>
-            <div class="card" style="text-align:center; border: 1px solid var(--accent);">
-                <div style="font-size: var(--small-size); font-weight:600; color: var(--accent); margin-bottom:0.3rem;">STAGE Agentic</div>
-                <div style="font-size: var(--label-size); color: var(--text-secondary);">[X] weeks · [B]-person + AI · ₹[C] lakh</div>
-            </div>
+        <div class="grid-3 reveal" style="margin-top:var(--content-gap);">
+            <div class="card" style="text-align:center; opacity:0.6;"><div style="font-size:var(--small-size); font-weight:600;">Traditional</div><div style="font-size:var(--label-size); color:var(--text-muted);">[X] months · [Y]-person crew · ₹[Z] crore</div></div>
+            <div style="display:flex; align-items:center; justify-content:center; font-size:var(--h3-size); color:var(--red); font-weight:800;">vs</div>
+            <div class="card" style="text-align:center; border:2px solid var(--red);"><div style="font-size:var(--small-size); font-weight:600; color:var(--red);">STAGE Agentic</div><div style="font-size:var(--label-size); color:var(--text-secondary);">[X] weeks · [B]-person + AI · ₹[C] lakh</div></div>
         </div>
-
-        <p class="reveal" style="text-align:center; font-size: var(--body-size); color: var(--text-secondary); margin-top: var(--element-gap); font-style:italic;">
-            Creative decisions are human. Everything else is AI.
-        </p>
+        <p class="reveal" style="text-align:center; font-size:var(--body-size); color:var(--text-secondary); margin-top:var(--element-gap); font-style:italic;">Creative decisions are human. Everything else is AI.</p>
     </div>
     <div class="slide-footer">Private & Confidential <span>10</span></div>
 </section>
 
-<!-- ============================================
-     SLIDE 11: CULTURAL ADAPTATION
-     ============================================ -->
-<section class="slide">
+<!-- SLIDE 11: CULTURAL ADAPTATION -->
+<section class="slide bg-blush">
     <div class="slide-content">
         <span class="section-label reveal">Cultural Adaptation</span>
         <h2 class="slide-title reveal">This is the moment. Watch closely.</h2>
         <div class="divider reveal"></div>
-
-        <p class="reveal" style="font-size: var(--body-size); color: var(--accent); font-weight:600; margin-bottom: var(--element-gap);">
-            🌍 LIVE DEMO: Cultural Adaptation — THE PITCH MOMENT
-        </p>
-
-        <div class="grid-2 reveal" style="margin-bottom: var(--content-gap);">
-            <div class="card" style="text-align:center; padding: clamp(1rem, 2vw, 2rem);">
-                <div style="font-size: var(--small-size); font-weight:600; color: var(--text-muted); margin-bottom:0.5rem;">ORIGINAL — Haryanvi</div>
-                <div style="font-size: 2.5rem;">🎭</div>
-            </div>
-            <div class="card" style="text-align:center; padding: clamp(1rem, 2vw, 2rem); border: 1px solid var(--accent);">
-                <div style="font-size: var(--small-size); font-weight:600; color: var(--accent); margin-bottom:0.5rem;">ADAPTED — Rajasthani → Marathi → ...</div>
-                <div style="font-size: 2.5rem;">🎭</div>
-            </div>
+        <p class="reveal" style="font-size:var(--body-size); color:var(--red); font-weight:600; margin-bottom:var(--element-gap);">🌍 LIVE DEMO: Cultural Adaptation — THE PITCH MOMENT</p>
+        <div class="grid-2 reveal" style="margin-bottom:var(--content-gap);">
+            <div class="card" style="text-align:center; padding:clamp(0.8rem,1.5vw,1.5rem);"><div style="font-size:var(--small-size); font-weight:600; color:var(--text-muted); margin-bottom:0.4rem;">ORIGINAL — Haryanvi</div><div style="font-size:2rem;">🎭</div></div>
+            <div class="card" style="text-align:center; padding:clamp(0.8rem,1.5vw,1.5rem); border:2px solid var(--red);"><div style="font-size:var(--small-size); font-weight:600; color:var(--red); margin-bottom:0.4rem;">ADAPTED — Rajasthani → Marathi → ...</div><div style="font-size:2rem;">🎭</div></div>
         </div>
-
-        <p class="reveal" style="font-size: var(--small-size); color: var(--text-secondary); text-align:center;">
-            Humor ✓  Music ✓  References ✓  Idioms ✓  Customs ✓  Food ✓  Clothes ✓
-        </p>
-
-        <div class="reveal" style="text-align:center; margin-top: var(--element-gap);">
-            <span style="font-family: var(--font-display); font-size: clamp(1.5rem, 3vw, 2.5rem); font-weight:700; color: var(--accent);">₹8,000 per episode</span>
-            <p style="font-size: var(--small-size); color: var(--text-secondary); margin-top:0.3rem;">155 cultural markers · 26 categories · NOT dubbing — cultural TRANSFORMATION</p>
+        <p class="reveal" style="font-size:var(--small-size); color:var(--text-secondary); text-align:center;">Humor ✓  Music ✓  References ✓  Idioms ✓  Customs ✓  Food ✓  Clothes ✓</p>
+        <div class="reveal" style="text-align:center; margin-top:var(--element-gap);">
+            <span style="font-size:clamp(1.5rem,3vw,2.5rem); font-weight:800; color:var(--red);">₹8,000 per episode</span>
+            <p style="font-size:var(--small-size); color:var(--text-secondary); margin-top:0.2rem;">155 cultural markers · 26 categories · NOT dubbing — cultural TRANSFORMATION</p>
         </div>
     </div>
     <div class="slide-footer">Private & Confidential <span>11</span></div>
 </section>
 
-<!-- ============================================
-     SLIDE 12: CONSUMER AI
-     ============================================ -->
-<section class="slide">
+<!-- SLIDE 12: CONSUMER AI -->
+<section class="slide bg-white">
     <div class="slide-content">
         <span class="section-label reveal">Consumer AI</span>
         <h2 class="slide-title reveal">Every viewer gets their own STAGE.</h2>
         <div class="divider reveal"></div>
-
-        <div class="grid-3 reveal" style="margin-top: var(--content-gap);">
-            <div class="card card-accent" style="text-align:center;">
-                <div class="metric">20%</div>
-                <div class="metric-label">Higher Consumption</div>
-                <p style="font-size: var(--label-size); color: var(--text-muted); margin-top:0.3rem;">Personalized discovery</p>
-            </div>
-            <div class="card card-accent" style="text-align:center;">
-                <div class="metric">40%</div>
-                <div class="metric-label">Higher D1 Retention</div>
-                <p style="font-size: var(--label-size); color: var(--text-muted); margin-top:0.3rem;">Character Bots</p>
-            </div>
-            <div class="card card-accent" style="text-align:center;">
-                <div class="metric">₹0</div>
-                <div class="metric-label">Marginal Cost</div>
-                <p style="font-size: var(--label-size); color: var(--text-muted); margin-top:0.3rem;">AI-native, not bolt-on</p>
-            </div>
+        <div class="grid-3 reveal" style="margin-top:var(--content-gap);">
+            <div class="card card-accent" style="text-align:center;"><div class="metric">20%</div><div class="metric-label">Higher Consumption</div><p style="font-size:var(--label-size); color:var(--text-muted); margin-top:0.2rem;">Personalized discovery</p></div>
+            <div class="card card-accent" style="text-align:center;"><div class="metric">40%</div><div class="metric-label">Higher D1 Retention</div><p style="font-size:var(--label-size); color:var(--text-muted); margin-top:0.2rem;">Character Bots</p></div>
+            <div class="card card-accent" style="text-align:center;"><div class="metric">₹0</div><div class="metric-label">Marginal Cost</div><p style="font-size:var(--label-size); color:var(--text-muted); margin-top:0.2rem;">AI-native, not bolt-on</p></div>
         </div>
-
-        <p class="reveal" style="text-align:center; font-size: var(--body-size); color: var(--text-secondary); margin-top: var(--content-gap); font-style:italic;">
-            Same content library. Completely different STAGE. Zero marginal cost.
-        </p>
+        <p class="reveal" style="text-align:center; font-size:var(--body-size); color:var(--text-secondary); margin-top:var(--content-gap); font-style:italic;">Same content library. Completely different STAGE. Zero marginal cost.</p>
     </div>
     <div class="slide-footer">Private & Confidential <span>12</span></div>
 </section>
 
-<!-- ============================================
-     SLIDE 13: UNIT ECONOMICS
-     ============================================ -->
-<section class="slide">
+<!-- SLIDE 13: UNIT ECONOMICS -->
+<section class="slide bg-light">
     <div class="slide-content">
         <span class="section-label reveal">Unit Economics</span>
         <h2 class="slide-title reveal">From media margins to tech margins.<br>We're already there.</h2>
         <div class="divider reveal"></div>
-
-        <div class="grid-3 reveal" style="margin-top: var(--element-gap);">
-            <div class="card" style="text-align:center; opacity:0.6;">
-                <div style="font-size: var(--label-size); font-weight:600; color: var(--text-muted);">TYPICAL MEDIA</div>
-                <div style="font-family: var(--font-display); font-size: clamp(1.5rem, 2.5vw, 2rem); font-weight:700; margin-top:0.3rem;">30-40%</div>
-            </div>
-            <div class="card" style="text-align:center; opacity:0.6;">
-                <div style="font-size: var(--label-size); font-weight:600; color: var(--text-muted);">TYPICAL TECH</div>
-                <div style="font-family: var(--font-display); font-size: clamp(1.5rem, 2.5vw, 2rem); font-weight:700; margin-top:0.3rem;">70-80%</div>
-            </div>
-            <div class="card" style="text-align:center; border: 2px solid var(--accent);">
-                <div style="font-size: var(--label-size); font-weight:600; color: var(--accent);">STAGE TODAY</div>
-                <div style="font-family: var(--font-display); font-size: clamp(1.5rem, 2.5vw, 2rem); font-weight:700; color: var(--accent); margin-top:0.3rem;">85%</div>
-                <div style="font-size: var(--label-size); color: var(--text-secondary); margin-top:0.2rem;">→ tracking to 95%</div>
-            </div>
+        <div class="grid-3 reveal" style="margin-top:var(--element-gap);">
+            <div class="card" style="text-align:center; opacity:0.6;"><div style="font-size:var(--label-size); font-weight:600; color:var(--text-muted);">TYPICAL MEDIA</div><div style="font-size:clamp(1.5rem,2.5vw,2rem); font-weight:800; margin-top:0.2rem;">30-40%</div></div>
+            <div class="card" style="text-align:center; opacity:0.6;"><div style="font-size:var(--label-size); font-weight:600; color:var(--text-muted);">TYPICAL TECH</div><div style="font-size:clamp(1.5rem,2.5vw,2rem); font-weight:800; margin-top:0.2rem;">70-80%</div></div>
+            <div class="card" style="text-align:center; border:2px solid var(--red);"><div style="font-size:var(--label-size); font-weight:600; color:var(--red);">STAGE TODAY</div><div style="font-size:clamp(1.5rem,2.5vw,2rem); font-weight:800; color:var(--red); margin-top:0.2rem;">85%</div><div style="font-size:var(--label-size); color:var(--text-secondary); margin-top:0.15rem;">→ tracking to 95%</div></div>
         </div>
-
-        <div class="grid-3 reveal" style="margin-top: var(--element-gap);">
-            <div class="card">
-                <h3 style="font-size: var(--small-size);">🎬 IP Creation</h3>
-                <p style="font-size: var(--label-size); color: var(--text-secondary); line-height:1.5;">60-80% cost reduction via agentic workflows</p>
-            </div>
-            <div class="card">
-                <h3 style="font-size: var(--small-size);">🌍 Market Launches</h3>
-                <p style="font-size: var(--label-size); color: var(--text-secondary); line-height:1.5;">Launch all markets simultaneously — no local production</p>
-            </div>
-            <div class="card">
-                <h3 style="font-size: var(--small-size);">📈 Result</h3>
-                <p style="font-size: var(--label-size); color: var(--text-secondary); line-height:1.5;">Each new market = margin expansion. AI-native platform.</p>
-            </div>
+        <div class="grid-3 reveal" style="margin-top:var(--element-gap);">
+            <div class="card"><h3 style="font-size:var(--small-size);">🎬 IP Creation</h3><p style="font-size:var(--label-size); color:var(--text-secondary); line-height:1.5;">60-80% cost reduction via agentic workflows</p></div>
+            <div class="card"><h3 style="font-size:var(--small-size);">🌍 Market Launches</h3><p style="font-size:var(--label-size); color:var(--text-secondary); line-height:1.5;">All markets simultaneously — no local production</p></div>
+            <div class="card"><h3 style="font-size:var(--small-size);">📈 Result</h3><p style="font-size:var(--label-size); color:var(--text-secondary); line-height:1.5;">Each new market = margin expansion. AI-native platform.</p></div>
         </div>
     </div>
     <div class="slide-footer">Private & Confidential <span>13</span></div>
 </section>
 
-<!-- ============================================
-     SLIDE 14: COMPETITIVE MOAT
-     ============================================ -->
-<section class="slide">
+<!-- SLIDE 14: COMPETITIVE MOAT -->
+<section class="slide bg-white">
     <div class="slide-content">
         <span class="section-label reveal">Competitive Moat</span>
         <h2 class="slide-title reveal">How we win.<br>The three things that matter.</h2>
         <div class="divider reveal"></div>
-
-        <div class="grid-3 reveal" style="margin-top: var(--element-gap);">
-            <div class="card card-accent">
-                <h3>Distribution</h3>
-                <p class="body" style="line-height:1.6;">First-mover in 14 markets<br>Millions with established habits<br>Refined playbooks across 4 markets</p>
-                <div style="margin-top: 0.5rem; font-size: var(--label-size); color: var(--accent); font-weight:600;">Every month → harder to displace</div>
-            </div>
-            <div class="card card-accent">
-                <h3>Brand & Trust</h3>
-                <p class="body" style="line-height:1.6;">Cultural institution, not an app<br>54% never paid for OTT before<br>Trust earned through respect</p>
-                <div style="margin-top: 0.5rem; font-size: var(--label-size); color: var(--accent); font-weight:600;">Trust doesn't transfer to new entrants</div>
-            </div>
-            <div class="card card-accent">
-                <h3>Cultural Context</h3>
-                <p class="body" style="line-height:1.6;">155 markers × 26 categories<br>1000s of hours of authentic IP<br>Creator relationships across 12+ langs</p>
-                <div style="margin-top: 0.5rem; font-size: var(--label-size); color: var(--accent); font-weight:600;">Not in any training set</div>
-            </div>
+        <div class="grid-3 reveal" style="margin-top:var(--element-gap);">
+            <div class="card card-accent"><h3>Distribution</h3><p class="body" style="line-height:1.6;">First-mover in 14 markets<br>Millions with established habits<br>Refined playbooks across 4 markets</p><div style="margin-top:0.4rem; font-size:var(--label-size); color:var(--red); font-weight:600;">Every month → harder to displace</div></div>
+            <div class="card card-accent"><h3>Brand & Trust</h3><p class="body" style="line-height:1.6;">Cultural institution, not an app<br>54% never paid for OTT before<br>Trust earned through respect</p><div style="margin-top:0.4rem; font-size:var(--label-size); color:var(--red); font-weight:600;">Trust doesn't transfer to new entrants</div></div>
+            <div class="card card-accent"><h3>Cultural Context</h3><p class="body" style="line-height:1.6;">155 markers × 26 categories<br>1000s of hours of authentic IP<br>Creator relationships across 12+ langs</p><div style="margin-top:0.4rem; font-size:var(--label-size); color:var(--red); font-weight:600;">Not in any training set</div></div>
         </div>
-
-        <p class="reveal" style="font-size: var(--small-size); color: var(--text-secondary); margin-top: var(--element-gap); text-align:center; font-style:italic;">
-            AI advantage = real but time-limited. What it builds = permanent.
-        </p>
+        <p class="reveal" style="font-size:var(--small-size); color:var(--text-secondary); margin-top:var(--element-gap); text-align:center; font-style:italic;">AI advantage = real but time-limited. What it builds = permanent.</p>
     </div>
     <div class="slide-footer">Private & Confidential <span>14</span></div>
 </section>
 
-<!-- ============================================
-     SLIDE 15: GROWTH ROADMAP
-     ============================================ -->
-<section class="slide">
+<!-- SLIDE 15: GROWTH ROADMAP -->
+<section class="slide bg-light">
     <div class="slide-content">
         <span class="section-label reveal">Growth Roadmap</span>
         <h2 class="slide-title reveal">14 languages. Each a $10-25M business.</h2>
         <div class="divider reveal"></div>
-
-        <table class="data-table reveal" style="margin-top: var(--element-gap);">
-            <thead>
-                <tr><th>Language</th><th>Speakers</th><th>Status</th><th>Target</th></tr>
-            </thead>
+        <table class="data-table reveal" style="margin-top:var(--element-gap);">
+            <thead><tr><th>Language</th><th>Speakers</th><th>Status</th><th>Target</th></tr></thead>
             <tbody>
-                <tr><td><strong>Haryanvi</strong></td><td>30M+</td><td style="color: var(--green);">✓ Profitable</td><td>Scaling</td></tr>
-                <tr><td><strong>Rajasthani</strong></td><td>50M+</td><td style="color: var(--green);">✓ Profitable</td><td>Scaling</td></tr>
-                <tr><td><strong>Bhojpuri</strong></td><td>50M+</td><td style="color: var(--green);">✓ ~12mo profit</td><td>Strong</td></tr>
-                <tr><td><strong>Gujarati</strong></td><td>55M+</td><td style="color: var(--green);">✓ Early</td><td>Building</td></tr>
+                <tr><td><strong>Haryanvi</strong></td><td>30M+</td><td style="color:var(--green);">✓ Profitable</td><td>Scaling</td></tr>
+                <tr><td><strong>Rajasthani</strong></td><td>50M+</td><td style="color:var(--green);">✓ Profitable</td><td>Scaling</td></tr>
+                <tr><td><strong>Bhojpuri</strong></td><td>50M+</td><td style="color:var(--green);">✓ ~12mo profit</td><td>Strong</td></tr>
+                <tr><td><strong>Gujarati</strong></td><td>55M+</td><td style="color:var(--green);">✓ Early</td><td>Building</td></tr>
                 <tr><td>Marathi</td><td>83M+</td><td>Apr 2026</td><td>$10-25M</td></tr>
                 <tr><td>Punjabi · Bangla</td><td>130M+</td><td>Jun-Aug 2026</td><td>$10-25M</td></tr>
                 <tr><td>Tamil · Telugu</td><td>155M+</td><td>Dec 2026</td><td>$15-25M each</td></tr>
                 <tr><td>+ 4 more</td><td>131M+</td><td>2026</td><td>$10-15M each</td></tr>
             </tbody>
         </table>
-
-        <div class="callout reveal" style="margin-top: var(--element-gap); text-align:center;">
-            <strong>Today: ~$20M ARR → Target: $100-200M ARR</strong><br>
-            <span style="color: var(--text-muted);">10 languages × $10M = $100M+ · Top 5 × $25M = $125M</span>
-        </div>
+        <div class="callout reveal" style="margin-top:var(--element-gap); text-align:center;"><strong>Today: ~$20M ARR → Target: $100-200M ARR</strong><br><span style="color:var(--text-muted);">10 languages × $10M = $100M+ · Top 5 × $25M = $125M</span></div>
     </div>
     <div class="slide-footer">Private & Confidential <span>15</span></div>
 </section>
 
-<!-- ============================================
-     SLIDE 16: GLOBAL VISION
-     ============================================ -->
-<section class="slide">
+<!-- SLIDE 16: GLOBAL VISION -->
+<section class="slide bg-dark">
     <div class="slide-content">
         <span class="section-label reveal">Global Vision</span>
         <h2 class="slide-title reveal">Cultural adaptation doesn't stop<br>at India's borders.</h2>
         <div class="divider reveal"></div>
-
-        <div style="margin-top: var(--content-gap); max-width: 700px;">
-            <p class="reveal" style="font-size: var(--body-size); color: var(--text-secondary); line-height:1.7; margin-bottom: var(--content-gap);">
-                India → the world's most culturally diverse market. Our proving ground.
-            </p>
-            <p class="reveal" style="font-size: var(--body-size); color: var(--text-primary); line-height:1.7; margin-bottom: var(--content-gap);">
-                If our AI navigates Haryanvi → Tamil → Bengali, it navigates any cultural boundary.
-            </p>
-            <p class="reveal" style="font-size: var(--body-size); color: var(--accent); font-weight:600; margin-bottom: var(--content-gap);">
-                Southeast Asia · Sub-Saharan Africa · Latin America · Eastern Europe
-            </p>
-            <p class="reveal" style="font-size: var(--body-size); color: var(--text-secondary); font-style: italic;">
-                India proves the model. The world is the destination. That's the Series D+ thesis.
-            </p>
+        <div style="margin-top:var(--content-gap); max-width:700px;">
+            <p class="reveal" style="font-size:var(--body-size); color:rgba(255,255,255,0.6); line-height:1.7; margin-bottom:var(--content-gap);">India → the world's most culturally diverse market. Our proving ground.</p>
+            <p class="reveal" style="font-size:var(--body-size); color:#FFFFFF; line-height:1.7; margin-bottom:var(--content-gap);">If our AI navigates Haryanvi → Tamil → Bengali, it navigates any cultural boundary.</p>
+            <p class="reveal" style="font-size:var(--body-size); color:var(--red); font-weight:600; margin-bottom:var(--content-gap);">Southeast Asia · Sub-Saharan Africa · Latin America · Eastern Europe</p>
+            <p class="reveal" style="font-size:var(--body-size); color:rgba(255,255,255,0.5); font-style:italic;">India proves the model. The world is the destination. That's the Series D+ thesis.</p>
         </div>
     </div>
     <div class="slide-footer">Private & Confidential <span>16</span></div>
 </section>
 
-<!-- ============================================
-     SLIDE 17: THE TEAM
-     ============================================ -->
-<section class="slide">
+<!-- SLIDE 17: THE TEAM -->
+<section class="slide bg-white">
     <div class="slide-content">
         <span class="section-label reveal">The Team</span>
         <h2 class="slide-title reveal">Built by Regional India,<br>for Regional India.</h2>
         <div class="divider reveal"></div>
-
-        <div class="grid-3 reveal" style="margin-top: var(--content-gap); grid-template-columns: repeat(4, 1fr);">
-            <div class="team-card">
-                <div class="team-avatar">VS</div>
-                <div class="name">Vinay Singhal</div>
-                <div class="role">CEO</div>
-                <div class="desc">Village in Haryana.<br>Zero to ₹171.5Cr ARR.</div>
-            </div>
-            <div class="team-card">
-                <div class="team-avatar">PS</div>
-                <div class="name">Parveen Singhal</div>
-                <div class="role">CCO</div>
-                <div class="desc">National Award-winning IP.<br>Forbes 30 Under 30 Asia.</div>
-            </div>
-            <div class="team-card">
-                <div class="team-avatar">SV</div>
-                <div class="name">Shashank Vaishnav</div>
-                <div class="role">CTO</div>
-                <div class="desc">Built the entire AI stack.<br>1.85M subscribers served.</div>
-            </div>
-            <div class="team-card">
-                <div class="team-avatar">HM</div>
-                <div class="name">Harsh Mani Tripathi</div>
-                <div class="role">Co-founder</div>
-                <div class="desc">Product & Operations.<br>BD & monetization.</div>
-            </div>
+        <div class="grid-4 reveal" style="margin-top:var(--content-gap);">
+            <div class="team-card"><div class="team-avatar">VS</div><div class="name">Vinay Singhal</div><div class="role">CEO</div><div class="desc">Village in Haryana.<br>Zero to ₹171.5Cr ARR.</div></div>
+            <div class="team-card"><div class="team-avatar">PS</div><div class="name">Parveen Singhal</div><div class="role">CCO</div><div class="desc">National Award-winning IP.<br>Forbes 30 Under 30 Asia.</div></div>
+            <div class="team-card"><div class="team-avatar">SV</div><div class="name">Shashank Vaishnav</div><div class="role">CTO</div><div class="desc">Built the entire AI stack.<br>1.85M subscribers served.</div></div>
+            <div class="team-card"><div class="team-avatar">HM</div><div class="name">Harsh Mani Tripathi</div><div class="role">Co-founder</div><div class="desc">Product & Operations.<br>BD & monetization.</div></div>
         </div>
-
-        <div class="reveal" style="margin-top: var(--content-gap); text-align:center;">
-            <p style="font-size: var(--small-size); color: var(--text-secondary);">Board: Karthik Reddy (Blume) · Vivek Subramanian (Goodwater)</p>
-            <div class="callout" style="text-align:center; margin-top: var(--element-gap);">
-                <strong>87 team members + hundreds of AI agents.</strong> Revenue scales faster than headcount. Existing investors confirmed participating.
-            </div>
+        <div class="reveal" style="margin-top:var(--content-gap); text-align:center;">
+            <p style="font-size:var(--small-size); color:var(--text-secondary);">Board: Karthik Reddy (Blume) · Vivek Subramanian (Goodwater)</p>
+            <div class="callout" style="text-align:center; margin-top:var(--element-gap);"><strong style="color:var(--text-dark);">87 team members + hundreds of AI agents.</strong> Revenue scales faster than headcount. Existing investors confirmed participating.</div>
         </div>
     </div>
     <div class="slide-footer">Private & Confidential <span>17</span></div>
 </section>
 
-<!-- ============================================
-     SLIDE 18: THE ASK
-     ============================================ -->
-<section class="slide">
+<!-- SLIDE 18: THE ASK -->
+<section class="slide bg-blush">
     <div class="slide-content">
         <span class="section-label reveal">The Ask</span>
         <h2 class="slide-title reveal">$25 million<br>to own cultural entertainment.</h2>
         <div class="divider reveal"></div>
-
-        <div class="grid-3 reveal" style="margin-top: var(--element-gap);">
-            <div class="card card-accent" style="text-align:center;">
-                <h3>🌍 10 New Markets</h3>
-                <p style="font-size: var(--label-size); color: var(--text-secondary);">Cultural adaptation<br>AI-powered launches</p>
-            </div>
-            <div class="card card-accent" style="text-align:center;">
-                <h3>🧠 Technology Moat</h3>
-                <p style="font-size: var(--label-size); color: var(--text-secondary);">Agentic pipeline +<br>adaptation depth</p>
-            </div>
-            <div class="card card-accent" style="text-align:center;">
-                <h3>👥 Team</h3>
-                <p style="font-size: var(--label-size); color: var(--text-secondary);">Scale to execute<br>14 markets</p>
-            </div>
+        <div class="grid-3 reveal" style="margin-top:var(--element-gap);">
+            <div class="card card-accent" style="text-align:center;"><h3>🌍 10 New Markets</h3><p style="font-size:var(--label-size); color:var(--text-secondary);">Cultural adaptation<br>AI-powered launches</p></div>
+            <div class="card card-accent" style="text-align:center;"><h3>🧠 Technology Moat</h3><p style="font-size:var(--label-size); color:var(--text-secondary);">Agentic pipeline +<br>adaptation depth</p></div>
+            <div class="card card-accent" style="text-align:center;"><h3>👥 Team</h3><p style="font-size:var(--label-size); color:var(--text-secondary);">Scale to execute<br>14 markets</p></div>
         </div>
-
-        <div class="reveal" style="margin-top: var(--content-gap);">
-            <div style="font-family: var(--font-display); font-size: var(--h3-size); font-weight:600; margin-bottom: var(--element-gap);">12-Month Milestones</div>
+        <div class="reveal" style="margin-top:var(--content-gap);">
+            <div style="font-size:var(--h3-size); font-weight:700; margin-bottom:var(--element-gap);">12-Month Milestones</div>
             <div class="milestone"><div class="check"></div>14 markets live (from 4)</div>
             <div class="milestone"><div class="check"></div>Path to $100M+ ARR</div>
             <div class="milestone"><div class="check"></div>4+ profitable markets (from 2)</div>
             <div class="milestone"><div class="check"></div>Cultural adaptation across all major language families</div>
             <div class="milestone"><div class="check"></div>24+ months runway</div>
         </div>
-
-        <p class="reveal" style="font-size: var(--small-size); color: var(--text-secondary); margin-top: var(--element-gap); font-style:italic;">
-            → Positions us for a significantly larger Series D — taking cultural adaptation global.
-        </p>
+        <p class="reveal" style="font-size:var(--small-size); color:var(--text-secondary); margin-top:var(--element-gap); font-style:italic;">→ Positions us for a significantly larger Series D — taking cultural adaptation global.</p>
     </div>
     <div class="slide-footer">Private & Confidential <span>18</span></div>
 </section>
 
-<!-- ============================================
-     SLIDE 19: CLOSING
-     ============================================ -->
-<section class="slide closing-slide" style="background: linear-gradient(160deg, #0B0D11 0%, #131820 40%, #0B0D11 100%);">
+<!-- SLIDE 19: CLOSING -->
+<section class="slide bg-dark closing-slide">
     <div class="slide-content">
         <div class="lines">
             <div class="line large reveal">1.5 billion people.</div>
             <div class="line medium reveal">No entertainment built for their cultures.</div>
-            <div class="line large reveal" style="margin-top: clamp(0.5rem, 1vw, 1rem);">We built it.</div>
+            <div class="line large reveal" style="margin-top:clamp(0.5rem,1vw,1rem);">We built it.</div>
             <div class="line medium reveal">₹171.5Cr ARR. Two profitable markets. 92% retention.</div>
-            <div class="line large reveal" style="margin-top: clamp(0.5rem, 1vw, 1rem);">Then we cracked cultural transformation.</div>
+            <div class="line large reveal" style="margin-top:clamp(0.5rem,1vw,1rem);">Then we cracked cultural transformation.</div>
             <div class="line medium reveal">One click. Any culture. ₹8,000 per episode.</div>
-            <div class="line highlight reveal" style="margin-top: clamp(0.8rem, 1.5vw, 1.5rem);">4 → 14 markets. $20M → $100-200M ARR.</div>
+            <div class="line highlight reveal" style="margin-top:clamp(0.8rem,1.5vw,1.5rem);">4 → 14 markets. $20M → $100-200M ARR.</div>
             <div class="line highlight reveal">$25 million. 14 markets. 12 months.</div>
         </div>
         <p class="thankyou reveal">Thank you.</p>
@@ -1259,97 +893,61 @@
 </section>
 
 <script>
-    /* ===========================================
-       SLIDE PRESENTATION CONTROLLER
-       Handles nav, animations, progress
-       =========================================== */
-    class SlidePresentation {
-        constructor() {
-            this.slides = document.querySelectorAll('.slide');
-            this.currentSlide = 0;
-            this.totalSlides = this.slides.length;
-            this.progressBar = document.getElementById('progressBar');
-            this.navDotsContainer = document.getElementById('navDots');
-            this.isNavigating = false;
-
-            this.createNavDots();
-            this.setupObserver();
-            this.setupKeyboard();
-            this.setupTouch();
-            this.updateProgress();
-        }
-
-        createNavDots() {
-            this.slides.forEach((_, i) => {
-                const dot = document.createElement('button');
-                dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
-                dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
-                dot.addEventListener('click', () => this.goToSlide(i));
-                this.navDotsContainer.appendChild(dot);
-            });
-        }
-
-        setupObserver() {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        const idx = Array.from(this.slides).indexOf(entry.target);
-                        this.currentSlide = idx;
-                        this.updateProgress();
-                        this.updateDots();
-                    }
-                });
-            }, { threshold: 0.5 });
-
-            this.slides.forEach(slide => observer.observe(slide));
-        }
-
-        setupKeyboard() {
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === ' ') {
-                    e.preventDefault();
-                    this.goToSlide(Math.min(this.currentSlide + 1, this.totalSlides - 1));
-                } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
-                    e.preventDefault();
-                    this.goToSlide(Math.max(this.currentSlide - 1, 0));
-                }
-            });
-        }
-
-        setupTouch() {
-            let startY = 0;
-            document.addEventListener('touchstart', (e) => { startY = e.touches[0].clientY; });
-            document.addEventListener('touchend', (e) => {
-                const diff = startY - e.changedTouches[0].clientY;
-                if (Math.abs(diff) > 50) {
-                    if (diff > 0) this.goToSlide(Math.min(this.currentSlide + 1, this.totalSlides - 1));
-                    else this.goToSlide(Math.max(this.currentSlide - 1, 0));
-                }
-            });
-        }
-
-        goToSlide(index) {
-            if (this.isNavigating) return;
-            this.isNavigating = true;
-            this.slides[index].scrollIntoView({ behavior: 'smooth' });
-            setTimeout(() => { this.isNavigating = false; }, 600);
-        }
-
-        updateProgress() {
-            const pct = ((this.currentSlide + 1) / this.totalSlides) * 100;
-            this.progressBar.style.width = pct + '%';
-        }
-
-        updateDots() {
-            const dots = this.navDotsContainer.querySelectorAll('.nav-dot');
-            dots.forEach((dot, i) => {
-                dot.classList.toggle('active', i === this.currentSlide);
-            });
-        }
+class SlidePresentation {
+    constructor() {
+        this.slides = document.querySelectorAll('.slide');
+        this.currentSlide = 0;
+        this.totalSlides = this.slides.length;
+        this.progressBar = document.getElementById('progressBar');
+        this.navDotsContainer = document.getElementById('navDots');
+        this.isNavigating = false;
+        this.createNavDots();
+        this.setupObserver();
+        this.setupKeyboard();
+        this.setupTouch();
+        this.updateProgress();
     }
-
-    new SlidePresentation();
+    createNavDots() {
+        this.slides.forEach((_, i) => {
+            const dot = document.createElement('button');
+            dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
+            dot.setAttribute('aria-label', `Slide ${i + 1}`);
+            dot.addEventListener('click', () => this.goToSlide(i));
+            this.navDotsContainer.appendChild(dot);
+        });
+    }
+    setupObserver() {
+        const obs = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    this.currentSlide = Array.from(this.slides).indexOf(entry.target);
+                    this.updateProgress();
+                    this.updateDots();
+                }
+            });
+        }, { threshold: 0.5 });
+        this.slides.forEach(s => obs.observe(s));
+    }
+    setupKeyboard() {
+        document.addEventListener('keydown', (e) => {
+            if (['ArrowDown','ArrowRight',' '].includes(e.key)) { e.preventDefault(); this.goToSlide(Math.min(this.currentSlide+1,this.totalSlides-1)); }
+            else if (['ArrowUp','ArrowLeft'].includes(e.key)) { e.preventDefault(); this.goToSlide(Math.max(this.currentSlide-1,0)); }
+        });
+    }
+    setupTouch() {
+        let sy=0;
+        document.addEventListener('touchstart', e => { sy=e.touches[0].clientY; });
+        document.addEventListener('touchend', e => {
+            const d=sy-e.changedTouches[0].clientY;
+            if(Math.abs(d)>50) { d>0 ? this.goToSlide(Math.min(this.currentSlide+1,this.totalSlides-1)) : this.goToSlide(Math.max(this.currentSlide-1,0)); }
+        });
+    }
+    goToSlide(i) { if(this.isNavigating) return; this.isNavigating=true; this.slides[i].scrollIntoView({behavior:'smooth'}); setTimeout(()=>{this.isNavigating=false;},600); }
+    updateProgress() { this.progressBar.style.width=((this.currentSlide+1)/this.totalSlides*100)+'%'; }
+    updateDots() { this.navDotsContainer.querySelectorAll('.nav-dot').forEach((d,i)=>d.classList.toggle('active',i===this.currentSlide)); }
+}
+new SlidePresentation();
 </script>
 </body>
 </html>
