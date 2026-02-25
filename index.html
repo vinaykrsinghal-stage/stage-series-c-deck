@@ -212,11 +212,8 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:#000;-w
 .bg-dark .slide-num{color:rgba(255,255,255,0.25);}
 
 /* ===== NAV ===== */
-.nav-bar{
-  position:fixed;bottom:0;left:0;right:0;height:3px;
-  background:rgba(0,0,0,0.08);z-index:100;
-}
-.nav-progress{height:100%;background:var(--red);transition:width 0.4s ease;}
+/* Removed visual progress line to keep presentation clean */
+.nav-bar,.nav-progress{display:none !important;}
 
 /* ===== TITLE SLIDE ===== */
 .hero-title{
@@ -240,6 +237,50 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:#000;-w
 .closing .medium{font-size:clamp(12px,1.6vh,20px);color:rgba(255,255,255,0.5);}
 .closing .highlight{font-size:clamp(16px,2.5vh,32px);font-weight:800;color:var(--red);}
 .closing .thankyou{font-size:clamp(10px,1.3vh,16px);color:rgba(255,255,255,0.25);margin-top:clamp(10px,2vh,24px);}
+
+/* ===== PRINT/PDF EXPORT (one slide per page, 16:9) ===== */
+@media print {
+  @page { size: landscape; margin: 0; }
+  html, body {
+    width: 100%;
+    height: auto;
+    overflow: visible !important;
+    background: #fff !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .deck {
+    position: static !important;
+    width: 100% !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+  .slide {
+    position: static !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    width: 100% !important;
+    height: auto !important;
+    page-break-after: always;
+    break-after: page;
+    overflow: visible !important;
+  }
+  .slide:last-child { page-break-after: auto; break-after: auto; }
+  .slide-inner {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    transform: none !important;
+    width: 100% !important;
+    aspect-ratio: 16 / 9;
+    height: auto !important;
+    min-height: 0 !important;
+    margin: 0 auto !important;
+    padding: 3.2% 4.5% !important;
+  }
+  .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+  .nav-bar, .nav-progress { display: none !important; }
+}
 
 /* ===== ANIMATIONS ===== */
 .reveal{opacity:0;transform:translateY(12px);transition:opacity 0.5s ease,transform 0.5s ease;}
@@ -756,7 +797,7 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:#000;-w
     slides[current].classList.remove('active');
     slides[i].classList.add('active');
     current = i;
-    progress.style.width = ((current+1)/total*100)+'%';
+    if(progress) progress.style.width = ((current+1)/total*100)+'%';
     history.pushState({slide:i},'',(i===0?'#':'#slide-'+(i+1)));
     setTimeout(()=>{animating=false;},550);
   }
@@ -802,14 +843,14 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:#000;-w
     slides[current].classList.remove('active');
     slides[i].classList.add('active');
     current=i;
-    progress.style.width=((current+1)/total*100)+'%';
+    if(progress) progress.style.width=((current+1)/total*100)+'%';
   });
 
   // Hash on load
   const h=location.hash.match(/slide-(\d+)/);
   if(h){const i=parseInt(h[1])-1;if(i>0&&i<total){slides[0].classList.remove('active');slides[i].classList.add('active');current=i;}}
   history.replaceState({slide:current},'','#');
-  progress.style.width=((current+1)/total*100)+'%';
+  if(progress) progress.style.width=((current+1)/total*100)+'%';
 })();
 </script>
 </body>
