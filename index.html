@@ -1,955 +1,809 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>STAGE — Series C</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-    <style>
-        /* ===========================================
-           THEME: STAGE VFinal — Light Executive
-           Montserrat + STAGE Red + White/Blush backgrounds
-           Matches the finalized Google Slides design
-           =========================================== */
-        :root {
-            --red: #E10D38;
-            --red-soft: rgba(225, 13, 56, 0.08);
-            --red-softer: rgba(225, 13, 56, 0.04);
-            --dark: #1A1A2E;
-            --dark-secondary: #16213E;
-            --text-dark: #1A1A1A;
-            --text-body: #2C2C2C;
-            --text-secondary: #6B6B6B;
-            --text-muted: #9A9A9A;
-            --bg-white: #FFFFFF;
-            --bg-blush: #FDF5F3;
-            --bg-light: #F7F7F9;
-            --bg-card: #FFFFFF;
-            --border-light: rgba(0,0,0,0.06);
-            --green: #16A34A;
-            --green-soft: rgba(22, 163, 74, 0.08);
-
-            --font: 'Montserrat', sans-serif;
-            --title-size: clamp(1.5rem, 3.5vw, 2.75rem);
-            --h3-size: clamp(0.9rem, 1.8vw, 1.3rem);
-            --body-size: clamp(0.75rem, 1.2vw, 1rem);
-            --small-size: clamp(0.65rem, 1vw, 0.85rem);
-            --label-size: clamp(0.55rem, 0.8vw, 0.72rem);
-
-            --slide-padding: clamp(2rem, 5vw, 5rem);
-            --content-gap: clamp(0.8rem, 2vw, 2rem);
-            --element-gap: clamp(0.4rem, 1vw, 0.8rem);
-
-            --ease: cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        html {
-            scroll-behavior: smooth;
-            scroll-snap-type: y mandatory;
-            height: 100%;
-            overflow-x: hidden;
-        }
-
-        body {
-            font-family: var(--font);
-            background: var(--bg-white);
-            color: var(--text-dark);
-            overflow-x: hidden;
-            height: 100%;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        /* ===========================================
-           SLIDES
-           =========================================== */
-        .slide {
-            width: 100vw;
-            height: 100vh;
-            height: 100dvh;
-            padding: var(--slide-padding);
-            scroll-snap-align: start;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .slide-content {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            max-height: 100%;
-            overflow: hidden;
-        }
-
-        /* Background variants */
-        .bg-white { background: var(--bg-white); }
-        .bg-blush { background: var(--bg-blush); }
-        .bg-light { background: var(--bg-light); }
-        .bg-dark {
-            background: linear-gradient(160deg, #1A1A2E 0%, #16213E 50%, #1A1A2E 100%);
-            color: #FFFFFF;
-        }
-        .bg-dark .text-secondary,
-        .bg-dark .slide-subtitle,
-        .bg-dark p { color: rgba(255,255,255,0.7); }
-        .bg-dark .section-label { color: var(--red); }
-        .bg-dark .slide-footer { color: rgba(255,255,255,0.3); }
-
-        /* ===========================================
-           TYPOGRAPHY
-           =========================================== */
-        .section-label {
-            font-size: var(--label-size);
-            font-weight: 700;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            color: var(--red);
-            margin-bottom: clamp(0.4rem, 0.8vw, 0.8rem);
-        }
-
-        .slide-title {
-            font-size: var(--title-size);
-            font-weight: 700;
-            line-height: 1.2;
-            color: var(--text-dark);
-        }
-
-        .bg-dark .slide-title { color: #FFFFFF; }
-
-        .slide-subtitle {
-            font-size: clamp(0.85rem, 1.5vw, 1.15rem);
-            font-weight: 500;
-            color: var(--text-secondary);
-            line-height: 1.4;
-        }
-
-        .divider {
-            width: 80px;
-            height: 4px;
-            background: var(--red);
-            border-radius: 2px;
-            margin: clamp(0.6rem, 1.2vw, 1.2rem) 0;
-        }
-
-        /* ===========================================
-           CARDS & GRIDS
-           =========================================== */
-        .grid-3 {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: clamp(0.5rem, 1.2vw, 1rem);
-        }
-
-        .grid-2 {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: clamp(0.5rem, 1.2vw, 1rem);
-        }
-
-        .grid-4 {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: clamp(0.5rem, 1.2vw, 1rem);
-        }
-
-        .card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-light);
-            border-radius: 10px;
-            padding: clamp(0.7rem, 1.3vw, 1.3rem);
-            position: relative;
-        }
-
-        .card-accent { border-top: 3px solid var(--red); }
-
-        .card .metric {
-            font-size: clamp(1.5rem, 3vw, 2.5rem);
-            font-weight: 800;
-            color: var(--red);
-            line-height: 1.1;
-        }
-
-        .card .metric-label {
-            font-size: var(--small-size);
-            color: var(--text-secondary);
-            margin-top: 0.25rem;
-            font-weight: 500;
-        }
-
-        .card h3 {
-            font-size: var(--h3-size);
-            font-weight: 700;
-            margin-bottom: 0.4rem;
-            color: var(--text-dark);
-        }
-
-        .card p, .card .body {
-            font-size: var(--small-size);
-            color: var(--text-secondary);
-            line-height: 1.55;
-        }
-
-        .bg-light .card { background: var(--bg-white); }
-        .bg-blush .card { background: var(--bg-white); }
-
-        /* ===========================================
-           NUMBERED BELIEFS
-           =========================================== */
-        .belief-item {
-            display: flex;
-            gap: clamp(0.5rem, 1vw, 1rem);
-            align-items: flex-start;
-            padding: clamp(0.5rem, 0.8vw, 0.8rem) 0;
-        }
-
-        .belief-num {
-            width: clamp(1.5rem, 2.2vw, 2rem);
-            height: clamp(1.5rem, 2.2vw, 2rem);
-            background: var(--red);
-            color: white;
-            border-radius: 5px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: var(--small-size);
-            flex-shrink: 0;
-        }
-
-        .belief-text h3 {
-            font-size: clamp(0.85rem, 1.4vw, 1.1rem);
-            font-weight: 700;
-            margin-bottom: 0.15rem;
-            color: var(--text-dark);
-        }
-
-        .belief-text p {
-            font-size: var(--small-size);
-            color: var(--text-secondary);
-        }
-
-        /* ===========================================
-           STACKED BARS (Problem slide)
-           =========================================== */
-        .stack-bar {
-            display: flex;
-            align-items: center;
-            padding: clamp(0.35rem, 0.7vw, 0.6rem) clamp(0.6rem, 1vw, 1rem);
-            border-radius: 6px;
-            margin-bottom: clamp(0.15rem, 0.3vw, 0.25rem);
-            background: var(--bg-light);
-            border-left: 4px solid transparent;
-        }
-
-        .stack-bar.barrier { background: var(--red-soft); border-left-color: var(--red); }
-        .stack-bar.solution { background: var(--green-soft); border-left-color: var(--green); }
-
-        .stack-bar .bar-title { font-weight: 600; font-size: var(--small-size); }
-        .stack-bar .bar-desc { font-size: var(--label-size); color: var(--text-muted); margin-left: auto; padding-left: 1rem; }
-
-        /* ===========================================
-           TIMELINE
-           =========================================== */
-        .timeline {
-            display: grid;
-            grid-template-columns: repeat(6, 1fr);
-            gap: clamp(0.3rem, 0.5vw, 0.5rem);
-        }
-
-        .timeline-item {
-            background: var(--bg-white);
-            border: 1px solid var(--border-light);
-            border-radius: 8px;
-            padding: clamp(0.35rem, 0.7vw, 0.7rem);
-            text-align: center;
-            border-top: 3px solid var(--red);
-        }
-
-        .timeline-item .date { font-size: var(--label-size); color: var(--text-muted); margin-bottom: 0.15rem; }
-        .timeline-item .name { font-size: var(--small-size); font-weight: 700; margin-bottom: 0.2rem; }
-        .timeline-item .impact { font-size: var(--label-size); color: var(--red); font-weight: 600; }
-
-        /* ===========================================
-           TABLE
-           =========================================== */
-        .data-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .data-table th {
-            background: var(--red);
-            color: white;
-            font-size: var(--small-size);
-            font-weight: 600;
-            padding: clamp(0.3rem, 0.5vw, 0.5rem) clamp(0.5rem, 1vw, 1rem);
-            text-align: left;
-        }
-
-        .data-table td {
-            font-size: var(--small-size);
-            padding: clamp(0.3rem, 0.5vw, 0.45rem) clamp(0.5rem, 1vw, 1rem);
-            border-bottom: 1px solid var(--border-light);
-        }
-
-        .data-table tr:nth-child(even) { background: var(--bg-light); }
-
-        /* ===========================================
-           CALLOUT
-           =========================================== */
-        .callout {
-            background: var(--red-soft);
-            border-left: 3px solid var(--red);
-            padding: clamp(0.5rem, 0.8vw, 0.8rem) clamp(0.6rem, 1vw, 1rem);
-            border-radius: 0 8px 8px 0;
-            font-size: var(--small-size);
-            color: var(--text-body);
-        }
-
-        .callout strong { color: var(--red); }
-
-        /* ===========================================
-           PIPELINE
-           =========================================== */
-        .pipeline {
-            display: flex;
-            align-items: center;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 0;
-        }
-
-        .pipeline-step {
-            background: var(--bg-white);
-            border: 1px solid var(--border-light);
-            padding: clamp(0.25rem, 0.5vw, 0.5rem) clamp(0.4rem, 0.8vw, 0.8rem);
-            border-radius: 6px;
-            font-size: var(--small-size);
-            text-align: center;
-            border-top: 2px solid var(--red);
-        }
-
-        .pipeline-arrow { color: var(--red); font-size: var(--body-size); padding: 0 clamp(0.1rem, 0.2vw, 0.2rem); }
-
-        /* ===========================================
-           TEAM
-           =========================================== */
-        .team-card { text-align: center; }
-
-        .team-avatar {
-            width: clamp(2rem, 3.5vw, 3.2rem);
-            height: clamp(2rem, 3.5vw, 3.2rem);
-            background: var(--red);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: var(--small-size);
-            margin: 0 auto clamp(0.2rem, 0.4vw, 0.4rem);
-        }
-
-        .team-card .name { font-weight: 700; font-size: var(--small-size); }
-        .team-card .role { font-size: var(--label-size); color: var(--red); font-weight: 600; }
-        .team-card .desc { font-size: var(--label-size); color: var(--text-secondary); margin-top: 0.15rem; line-height: 1.4; }
-
-        /* ===========================================
-           MILESTONES
-           =========================================== */
-        .milestone {
-            display: flex;
-            align-items: center;
-            gap: clamp(0.3rem, 0.5vw, 0.5rem);
-            padding: clamp(0.2rem, 0.4vw, 0.35rem) 0;
-            font-size: var(--small-size);
-        }
-
-        .milestone .check {
-            width: 16px; height: 16px;
-            border: 2px solid var(--red);
-            border-radius: 3px;
-            flex-shrink: 0;
-        }
-
-        /* ===========================================
-           VS GRID
-           =========================================== */
-        .vs-grid {
-            display: grid;
-            grid-template-columns: 1fr auto 1fr;
-            gap: clamp(0.5rem, 1vw, 1rem);
-            align-items: center;
-        }
-
-        .vs-divider { font-weight: 800; font-size: var(--h3-size); color: var(--red); text-align: center; }
-
-        /* ===========================================
-           FOOTER
-           =========================================== */
-        .slide-footer {
-            position: absolute;
-            bottom: clamp(0.5rem, 1vw, 1rem);
-            right: var(--slide-padding);
-            font-size: var(--label-size);
-            color: var(--text-muted);
-            display: flex;
-            gap: 1rem;
-        }
-
-        /* ===========================================
-           ANIMATIONS
-           =========================================== */
-        .reveal {
-            opacity: 0;
-            transform: translateY(18px);
-            transition: opacity 0.65s var(--ease), transform 0.65s var(--ease);
-        }
-
-        .slide.visible .reveal { opacity: 1; transform: translateY(0); }
-
-        .reveal:nth-child(1) { transition-delay: 0.05s; }
-        .reveal:nth-child(2) { transition-delay: 0.12s; }
-        .reveal:nth-child(3) { transition-delay: 0.19s; }
-        .reveal:nth-child(4) { transition-delay: 0.26s; }
-        .reveal:nth-child(5) { transition-delay: 0.33s; }
-        .reveal:nth-child(6) { transition-delay: 0.40s; }
-        .reveal:nth-child(7) { transition-delay: 0.47s; }
-        .reveal:nth-child(8) { transition-delay: 0.54s; }
-
-        /* Progress bar */
-        .progress-bar { position: fixed; top: 0; left: 0; height: 3px; background: var(--red); z-index: 100; transition: width 0.3s ease; }
-
-        /* Nav dots */
-        .nav-dots {
-            position: fixed; right: clamp(0.5rem, 1vw, 1.2rem); top: 50%; transform: translateY(-50%);
-            display: flex; flex-direction: column; gap: 5px; z-index: 100;
-        }
-
-        .nav-dot {
-            width: 7px; height: 7px; border-radius: 50%; background: rgba(0,0,0,0.12);
-            cursor: pointer; transition: all 0.3s ease; border: none; padding: 0;
-        }
-
-        .nav-dot.active { background: var(--red); transform: scale(1.4); }
-
-        .bg-dark ~ .nav-dots .nav-dot { background: rgba(255,255,255,0.2); }
-
-        /* ===========================================
-           RESPONSIVE
-           =========================================== */
-        @media (max-width: 768px) {
-            .grid-3, .grid-4 { grid-template-columns: repeat(2, 1fr); }
-            .timeline { grid-template-columns: repeat(3, 1fr); }
-            .nav-dots { display: none; }
-            .vs-grid { grid-template-columns: 1fr; }
-            .vs-divider { transform: rotate(90deg); }
-        }
-
-        @media (max-width: 500px) {
-            .grid-3, .grid-2 { grid-template-columns: 1fr; }
-        }
-
-        @media (max-height: 600px) {
-            :root {
-                --slide-padding: clamp(1rem, 3vw, 2rem);
-                --content-gap: clamp(0.4rem, 1vw, 0.8rem);
-            }
-            .nav-dots { display: none; }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            .reveal { transition: opacity 0.3s ease; transform: none; }
-            html { scroll-behavior: auto; }
-        }
-
-        /* ===========================================
-           TITLE SLIDE SPECIFIC
-           =========================================== */
-        .title-slide .hero-title {
-            font-size: clamp(2rem, 5vw, 4rem);
-            font-weight: 800;
-            line-height: 1.1;
-            color: #FFFFFF;
-        }
-
-        .title-slide .hero-title .accent { color: var(--red); }
-
-        .title-slide .tagline {
-            font-size: var(--body-size);
-            color: rgba(255,255,255,0.4);
-            margin-top: clamp(1rem, 2vw, 2rem);
-            letter-spacing: 0.1em;
-            font-weight: 500;
-        }
-
-        /* Closing slide */
-        .closing-slide .lines { display: flex; flex-direction: column; gap: clamp(0.2rem, 0.6vw, 0.6rem); }
-        .closing-slide .line { line-height: 1.3; }
-        .closing-slide .line.large { font-size: clamp(1.2rem, 2.5vw, 2rem); font-weight: 700; color: #FFFFFF; }
-        .closing-slide .line.medium { font-size: clamp(0.9rem, 1.8vw, 1.3rem); font-weight: 400; color: rgba(255,255,255,0.6); }
-        .closing-slide .line.highlight { font-size: clamp(1.2rem, 2.5vw, 2rem); font-weight: 800; color: var(--red); }
-        .closing-slide .thankyou { font-size: var(--body-size); color: rgba(255,255,255,0.3); margin-top: clamp(1rem, 2vw, 2rem); }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>STAGE — Series C</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --red:#E10D38;
+  --red-soft:rgba(225,13,56,0.08);
+  --red-glow:rgba(225,13,56,0.15);
+  --dark:#0F1117;
+  --dark2:#181B25;
+  --text:#1A1A1A;
+  --body:#333;
+  --muted:#888;
+  --light-muted:#aaa;
+  --bg:#FFFFFF;
+  --blush:#FDF5F3;
+  --light:#F5F5F7;
+  --card:#FFFFFF;
+  --border:rgba(0,0,0,0.07);
+  --green:#16A34A;
+  --font:'Montserrat',sans-serif;
+}
+html,body{height:100%;overflow:hidden;font-family:var(--font);background:#000;-webkit-font-smoothing:antialiased;}
+
+/* ===== DECK CONTAINER ===== */
+.deck{position:relative;width:100vw;height:100vh;overflow:hidden;}
+.slide{
+  position:absolute;top:0;left:0;
+  width:100vw;height:100vh;
+  display:flex;flex-direction:column;
+  opacity:0;pointer-events:none;
+  transition:opacity 0.5s ease;
+  overflow:hidden;
+}
+.slide.active{opacity:1;pointer-events:auto;}
+
+/* Force 16:9 inner content */
+.slide-inner{
+  position:absolute;
+  top:50%;left:50%;transform:translate(-50%,-50%);
+  width:min(100vw, 177.78vh);
+  height:min(100vh, 56.25vw);
+  padding:3.5% 5%;
+  display:flex;flex-direction:column;
+  overflow:hidden;
+}
+
+/* ===== BACKGROUNDS ===== */
+.bg-white{background:var(--bg);}
+.bg-blush{background:var(--blush);}
+.bg-light{background:var(--light);}
+.bg-dark{background:linear-gradient(135deg,#0F1117 0%,#1A1D2E 50%,#0F1117 100%);color:#fff;}
+.bg-dark .section-label{color:var(--red);}
+.bg-dark .slide-title{color:#fff;}
+.bg-dark .muted{color:rgba(255,255,255,0.5);}
+.bg-dark .body-text{color:rgba(255,255,255,0.7);}
+.bg-dark .footer{color:rgba(255,255,255,0.25);}
+.bg-dark .card{background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.1);}
+.bg-dark .card h3{color:#fff;}
+.bg-dark .card p,.bg-dark .card .body{color:rgba(255,255,255,0.6);}
+
+/* ===== LOGO ===== */
+.logo{height:clamp(20px,2.2vh,32px);position:absolute;top:3.5%;left:5%;z-index:2;opacity:0.7;}
+.bg-dark .logo{filter:brightness(10);}/* make icon visible on dark */
+
+/* ===== TYPOGRAPHY ===== */
+.section-label{
+  font-size:clamp(8px,0.9vh,13px);font-weight:700;
+  letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--red);margin-bottom:clamp(4px,0.8vh,10px);
+}
+.slide-title{
+  font-size:clamp(18px,3.2vh,42px);font-weight:700;
+  line-height:1.15;color:var(--text);
+  margin-bottom:clamp(4px,0.6vh,8px);
+}
+.slide-subtitle{
+  font-size:clamp(11px,1.5vh,18px);font-weight:400;
+  color:var(--muted);line-height:1.5;
+}
+.body-text{font-size:clamp(10px,1.3vh,16px);color:var(--body);line-height:1.55;}
+.small-text{font-size:clamp(8px,1.1vh,13px);color:var(--muted);line-height:1.5;}
+.label-text{font-size:clamp(7px,0.85vh,11px);color:var(--muted);line-height:1.4;}
+.divider{width:60px;height:3px;background:var(--red);border-radius:2px;margin:clamp(4px,0.8vh,12px) 0;}
+.accent{color:var(--red);}
+.bold{font-weight:700;}
+.mt{margin-top:clamp(6px,1.2vh,16px);}
+.mt-sm{margin-top:clamp(3px,0.6vh,8px);}
+
+/* ===== GRID ===== */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:clamp(6px,1vh,14px);}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:clamp(6px,1vh,14px);}
+.grid-4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:clamp(6px,1vh,14px);}
+.grid-6{display:grid;grid-template-columns:repeat(6,1fr);gap:clamp(4px,0.6vh,8px);}
+
+/* ===== CARDS ===== */
+.card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:8px;padding:clamp(8px,1.3vh,18px);
+}
+.card-accent{border-top:3px solid var(--red);}
+.card h3{font-size:clamp(10px,1.3vh,16px);font-weight:700;color:var(--text);margin-bottom:clamp(2px,0.3vh,4px);}
+.card p,.card .body{font-size:clamp(8px,1vh,12px);color:var(--muted);line-height:1.5;}
+.metric{font-size:clamp(20px,3vh,40px);font-weight:800;color:var(--red);line-height:1.1;}
+.metric-label{font-size:clamp(8px,1vh,12px);color:var(--muted);margin-top:2px;font-weight:500;}
+.card-tag{font-size:clamp(7px,0.85vh,10px);color:var(--red);font-weight:600;margin-top:clamp(4px,0.6vh,8px);}
+
+/* ===== BELIEF ITEMS ===== */
+.belief{display:flex;gap:clamp(6px,1vh,14px);align-items:flex-start;padding:clamp(4px,0.6vh,8px) 0;}
+.belief-num{
+  width:clamp(18px,2.2vh,28px);height:clamp(18px,2.2vh,28px);
+  background:var(--red);color:#fff;border-radius:4px;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:700;font-size:clamp(9px,1.1vh,14px);flex-shrink:0;
+}
+.belief h3{font-size:clamp(11px,1.4vh,17px);font-weight:700;color:var(--text);}
+.belief p{font-size:clamp(9px,1.1vh,13px);color:var(--muted);}
+
+/* ===== STACK BARS ===== */
+.bar{
+  display:flex;align-items:center;
+  padding:clamp(4px,0.55vh,7px) clamp(8px,1vh,14px);
+  border-radius:5px;margin-bottom:clamp(2px,0.25vh,3px);
+  background:var(--light);border-left:3px solid transparent;
+}
+.bar.barrier{background:var(--red-soft);border-left-color:var(--red);}
+.bar.solution{background:rgba(22,163,74,0.08);border-left-color:var(--green);}
+.bar .bar-title{font-weight:600;font-size:clamp(9px,1.1vh,13px);}
+.bar .bar-desc{font-size:clamp(7px,0.85vh,11px);color:var(--muted);margin-left:auto;padding-left:1rem;}
+
+/* ===== CALLOUT ===== */
+.callout{
+  background:var(--red-soft);border-left:3px solid var(--red);
+  padding:clamp(6px,0.8vh,12px) clamp(8px,1.2vh,16px);
+  border-radius:0 6px 6px 0;font-size:clamp(9px,1.1vh,13px);color:var(--body);
+}
+.callout strong{color:var(--red);}
+
+/* ===== TABLE ===== */
+.dtable{width:100%;border-collapse:collapse;}
+.dtable th{
+  background:var(--red);color:#fff;
+  font-size:clamp(8px,1vh,12px);font-weight:600;
+  padding:clamp(3px,0.4vh,6px) clamp(6px,0.8vh,12px);text-align:left;
+}
+.dtable td{
+  font-size:clamp(8px,1vh,12px);
+  padding:clamp(3px,0.4vh,5px) clamp(6px,0.8vh,12px);
+  border-bottom:1px solid var(--border);
+}
+.dtable tr:nth-child(even){background:var(--light);}
+
+/* ===== TIMELINE ===== */
+.tl-item{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:6px;padding:clamp(4px,0.6vh,10px);
+  text-align:center;border-top:3px solid var(--red);
+}
+.tl-item .date{font-size:clamp(7px,0.8vh,10px);color:var(--muted);}
+.tl-item .name{font-size:clamp(8px,1vh,12px);font-weight:700;margin:2px 0;}
+.tl-item .impact{font-size:clamp(7px,0.85vh,10px);color:var(--red);font-weight:600;}
+
+/* ===== PIPELINE ===== */
+.pipeline{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:0;}
+.pipe-step{
+  background:var(--card);border:1px solid var(--border);
+  padding:clamp(4px,0.5vh,8px) clamp(6px,0.8vh,12px);
+  border-radius:5px;font-size:clamp(9px,1.1vh,13px);
+  text-align:center;border-top:2px solid var(--red);
+}
+.pipe-arrow{color:var(--red);font-size:clamp(10px,1.3vh,16px);padding:0 clamp(2px,0.3vh,4px);}
+
+/* ===== TEAM ===== */
+.team-card{text-align:center;}
+.team-avatar{
+  width:clamp(24px,3vh,42px);height:clamp(24px,3vh,42px);
+  background:var(--red);color:#fff;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:700;font-size:clamp(9px,1.1vh,14px);margin:0 auto clamp(3px,0.4vh,6px);
+}
+.team-card .name{font-weight:700;font-size:clamp(9px,1.1vh,13px);}
+.team-card .role{font-size:clamp(7px,0.85vh,10px);color:var(--red);font-weight:600;}
+.team-card .desc{font-size:clamp(7px,0.85vh,10px);color:var(--muted);margin-top:2px;line-height:1.4;}
+
+/* ===== VS GRID ===== */
+.vs-grid{display:grid;grid-template-columns:1fr auto 1fr;gap:clamp(8px,1.2vh,18px);align-items:center;}
+.vs-divider{font-weight:800;font-size:clamp(16px,2.5vh,32px);color:var(--red);text-align:center;}
+
+/* ===== MILESTONES ===== */
+.milestone{display:flex;align-items:center;gap:clamp(4px,0.5vh,8px);padding:clamp(2px,0.3vh,4px) 0;font-size:clamp(9px,1.1vh,13px);}
+.milestone .check{width:14px;height:14px;border:2px solid var(--red);border-radius:3px;flex-shrink:0;}
+
+/* ===== FOOTER ===== */
+.footer{
+  position:absolute;bottom:clamp(6px,1vh,14px);right:5%;
+  font-size:clamp(7px,0.8vh,10px);color:var(--muted);
+  display:flex;gap:1.5em;
+}
+
+/* ===== SLIDE NUMBER ===== */
+.slide-num{
+  position:absolute;bottom:clamp(6px,1vh,14px);left:5%;
+  font-size:clamp(7px,0.8vh,10px);color:var(--muted);font-weight:600;
+}
+.bg-dark .slide-num{color:rgba(255,255,255,0.25);}
+
+/* ===== NAV ===== */
+.nav-bar{
+  position:fixed;bottom:0;left:0;right:0;height:3px;
+  background:rgba(0,0,0,0.08);z-index:100;
+}
+.nav-progress{height:100%;background:var(--red);transition:width 0.4s ease;}
+
+/* ===== TITLE SLIDE ===== */
+.hero-title{
+  font-size:clamp(24px,4.5vh,58px);font-weight:800;line-height:1.1;color:#fff;
+}
+.hero-title .accent{color:var(--red);}
+.tagline{
+  font-size:clamp(9px,1.2vh,15px);color:rgba(255,255,255,0.35);
+  margin-top:clamp(10px,2vh,28px);letter-spacing:0.12em;font-weight:500;
+}
+.hero-badges{display:flex;gap:clamp(6px,1vh,14px);margin-top:clamp(10px,2vh,24px);}
+.hero-badge{
+  font-size:clamp(8px,1vh,12px);font-weight:600;color:var(--red);
+  background:rgba(225,13,56,0.1);padding:clamp(3px,0.4vh,6px) clamp(8px,1vh,14px);
+  border-radius:4px;border:1px solid rgba(225,13,56,0.2);
+}
+
+/* ===== CLOSING ===== */
+.closing .line{line-height:1.35;}
+.closing .large{font-size:clamp(16px,2.5vh,32px);font-weight:700;color:#fff;}
+.closing .medium{font-size:clamp(12px,1.6vh,20px);color:rgba(255,255,255,0.5);}
+.closing .highlight{font-size:clamp(16px,2.5vh,32px);font-weight:800;color:var(--red);}
+.closing .thankyou{font-size:clamp(10px,1.3vh,16px);color:rgba(255,255,255,0.25);margin-top:clamp(10px,2vh,24px);}
+
+/* ===== ANIMATIONS ===== */
+.reveal{opacity:0;transform:translateY(12px);transition:opacity 0.5s ease,transform 0.5s ease;}
+.slide.active .reveal{opacity:1;transform:translateY(0);}
+.slide.active .reveal:nth-child(1){transition-delay:0.05s;}
+.slide.active .reveal:nth-child(2){transition-delay:0.1s;}
+.slide.active .reveal:nth-child(3){transition-delay:0.15s;}
+.slide.active .reveal:nth-child(4){transition-delay:0.2s;}
+.slide.active .reveal:nth-child(5){transition-delay:0.25s;}
+.slide.active .reveal:nth-child(6){transition-delay:0.3s;}
+.slide.active .reveal:nth-child(7){transition-delay:0.35s;}
+.slide.active .reveal:nth-child(8){transition-delay:0.4s;}
+
+/* Content wrapper to push content below logo */
+.content{flex:1;display:flex;flex-direction:column;justify-content:center;padding-top:clamp(16px,2.5vh,36px);}
+
+/* Flex spacer */
+.spacer{flex:1;}
+</style>
 </head>
 <body>
 
-<div class="progress-bar" id="progressBar"></div>
-<nav class="nav-dots" id="navDots"></nav>
+<div class="deck" id="deck">
 
 <!-- SLIDE 1: TITLE -->
-<section class="slide bg-dark title-slide">
-    <div class="slide-content">
-        <div class="reveal" style="margin-bottom: clamp(1rem, 2vw, 2rem);">
-            <svg width="110" height="30" viewBox="0 0 110 30"><rect width="26" height="26" rx="5" fill="#E10D38" y="2"/><text x="6" y="20" font-family="Montserrat,sans-serif" font-weight="800" font-size="16" fill="white">S</text><text x="33" y="22" font-family="Montserrat,sans-serif" font-weight="700" font-size="20" fill="white">STAGE</text></svg>
-        </div>
-        <h1 class="hero-title reveal">AI-Native Entertainment<br>for Every Human,<br>in <span class="accent">Their Culture.</span></h1>
-        <p class="tagline reveal">Series C · Confidential · February 2026</p>
+<section class="slide bg-dark active" data-slide="0">
+  <div class="slide-inner">
+    <img class="logo" src="https://media.stage.in/static/stage_logo_horizontal.webp" alt="STAGE">
+    <div class="content" style="justify-content:center;">
+      <h1 class="hero-title reveal">AI-Native Entertainment<br>for Every Human,<br>in <span class="accent">Their Culture.</span></h1>
+      <div class="hero-badges reveal">
+        <span class="hero-badge">AI-Native</span>
+        <span class="hero-badge">Proven Unit Economics</span>
+        <span class="hero-badge">Global Cultural Adaptation</span>
+      </div>
+      <p class="tagline reveal">Series C · Confidential · February 2026</p>
     </div>
+    <div class="slide-num">01 / 19</div>
+  </div>
 </section>
 
 <!-- SLIDE 2: WHAT YOU NEED TO BELIEVE -->
-<section class="slide bg-white">
-    <div class="slide-content">
-        <span class="section-label reveal">What You Need to Believe</span>
-        <h2 class="slide-title reveal">Three things. If you believe them,<br>everything else follows.</h2>
-        <div class="divider reveal"></div>
-        <div style="display:flex; flex-direction:column; gap: var(--element-gap); margin-top: var(--element-gap);">
-            <div class="belief-item reveal">
-                <div class="belief-num">1</div>
-                <div class="belief-text">
-                    <h3>Cultural entertainment is a massive, structurally underserved market.</h3>
-                    <p>1.5B people · 22 languages · 19,000+ dialects · No premium entertainment</p>
-                </div>
-            </div>
-            <div class="belief-item reveal">
-                <div class="belief-num">2</div>
-                <div class="belief-text">
-                    <h3>AI transforms the economics of serving it.</h3>
-                    <p>One IP → any culture · ₹8,000/episode · Creation to distribution, fully AI-native</p>
-                </div>
-            </div>
-            <div class="belief-item reveal">
-                <div class="belief-num">3</div>
-                <div class="belief-text">
-                    <h3>We're the only team that can execute — because we already have.</h3>
-                    <p>₹171.5Cr ARR · 2 profitable markets · 92% series retention · 1.85M subscribers</p>
-                </div>
-            </div>
+<section class="slide bg-white" data-slide="1">
+  <div class="slide-inner">
+    <img class="logo" src="https://media.stage.in/static/stage_logo_stack.png" alt="STAGE">
+    <div class="content">
+      <span class="section-label reveal">What You Need to Believe</span>
+      <h2 class="slide-title reveal">Three things. If you believe them,<br>everything else follows.</h2>
+      <div class="divider reveal"></div>
+      <div class="mt" style="display:flex;flex-direction:column;gap:clamp(4px,0.7vh,10px);">
+        <div class="belief reveal">
+          <div class="belief-num">1</div>
+          <div><h3>Cultural entertainment is a massive, structurally underserved market.</h3><p>1.5B people · 22 languages · 19,000+ dialects · No premium entertainment</p></div>
         </div>
+        <div class="belief reveal">
+          <div class="belief-num">2</div>
+          <div><h3>AI transforms the economics of serving it.</h3><p>One IP → any culture · ₹8,000/episode · Creation to distribution, fully AI-native</p></div>
+        </div>
+        <div class="belief reveal">
+          <div class="belief-num">3</div>
+          <div><h3>We're the only team that can execute — because we already have.</h3><p>₹171.5Cr ARR · 2 profitable markets · 92% series retention · 1.85M subscribers</p></div>
+        </div>
+      </div>
     </div>
-    <div class="slide-footer">Private & Confidential <span>2</span></div>
+    <div class="slide-num">02 / 19</div>
+    <div class="footer">Private & Confidential</div>
+  </div>
 </section>
 
 <!-- SLIDE 3: TRACTION -->
-<section class="slide bg-blush">
-    <div class="slide-content">
-        <span class="section-label reveal">Traction</span>
-        <h2 class="slide-title reveal">₹171.5 Crore ARR.<br>Two profitable markets.</h2>
-        <div class="divider reveal"></div>
-        <div class="grid-3 reveal" style="margin-top: var(--element-gap);">
-            <div class="card card-accent"><div class="metric">₹171.5Cr</div><div class="metric-label">Annualized Recurring Revenue</div></div>
-            <div class="card card-accent"><div class="metric">1.85M</div><div class="metric-label">Paying Subscribers</div></div>
-            <div class="card card-accent"><div class="metric">2 of 4</div><div class="metric-label">Markets Profitable</div></div>
-        </div>
-        <div class="grid-3 reveal" style="margin-top: clamp(0.3rem, 0.5vw, 0.5rem);">
-            <div class="card card-accent"><div class="metric">92%</div><div class="metric-label">Weekly Series Return Rate</div></div>
-            <div class="card card-accent"><div class="metric" style="color:var(--text-muted);">[X]x</div><div class="metric-label">LTV/CAC (Haryanvi)</div></div>
-            <div class="card card-accent"><div class="metric" style="color:var(--text-muted);">[TBD]</div><div class="metric-label">Key Engagement Metric</div></div>
-        </div>
+<section class="slide bg-blush" data-slide="2">
+  <div class="slide-inner">
+    <img class="logo" src="https://media.stage.in/static/stage_logo_stack.png" alt="STAGE">
+    <div class="content">
+      <span class="section-label reveal">Traction</span>
+      <h2 class="slide-title reveal">₹171.5 Crore ARR.<br>Two profitable markets.</h2>
+      <div class="divider reveal"></div>
+      <div class="grid-3 mt reveal">
+        <div class="card card-accent"><div class="metric">₹171.5Cr</div><div class="metric-label">Annualized Recurring Revenue</div></div>
+        <div class="card card-accent"><div class="metric">1.85M</div><div class="metric-label">Paying Subscribers</div></div>
+        <div class="card card-accent"><div class="metric">2 of 4</div><div class="metric-label">Markets Profitable</div></div>
+      </div>
+      <div class="grid-3 mt-sm reveal">
+        <div class="card card-accent"><div class="metric">92%</div><div class="metric-label">Weekly Series Return Rate</div></div>
+        <div class="card card-accent"><div class="metric" style="color:var(--muted);">[X]x</div><div class="metric-label">LTV/CAC (Haryanvi)</div></div>
+        <div class="card card-accent"><div class="metric" style="color:var(--muted);">[TBD]</div><div class="metric-label">Key Engagement Metric</div></div>
+      </div>
     </div>
-    <div class="slide-footer">Private & Confidential <span>3</span></div>
+    <div class="slide-num">03 / 19</div>
+    <div class="footer">Private & Confidential</div>
+  </div>
 </section>
 
 <!-- SLIDE 4: THE OPPORTUNITY -->
-<section class="slide bg-blush">
-    <div class="slide-content">
-        <span class="section-label reveal">The Opportunity</span>
-        <h2 class="slide-title reveal">1.5 Billion people.<br>No entertainment for their culture.</h2>
-        <div class="divider reveal"></div>
-        <div class="grid-2 reveal" style="margin-top: var(--element-gap); align-items:center;">
-            <div>
-                <p style="font-size:var(--body-size); color:var(--text-secondary); line-height:1.6; margin-bottom:var(--element-gap);">Cultural identity transcends socioeconomic status. Distinct cultures. Distinct identities. Distinct entertainment needs.</p>
-                <div class="callout"><strong>54%</strong> of subscribers had never paid for any OTT before. <strong>New spend, not stolen share.</strong></div>
-            </div>
-            <div style="display:flex; flex-direction:column; gap:clamp(0.3rem,0.5vw,0.5rem);">
-                <div class="card" style="opacity:0.5; padding:clamp(0.3rem,0.6vw,0.6rem) clamp(0.5rem,1vw,1rem);"><div style="font-size:var(--small-size); font-weight:600;">Netflix / JioHotstar</div><div style="font-size:var(--label-size); color:var(--text-muted);">Premium · Hindi & English</div></div>
-                <div class="card" style="border:2px solid var(--red); padding:clamp(0.5rem,1vw,1rem);"><div style="font-size:var(--h3-size); font-weight:800; color:var(--red);">STAGE</div><div style="font-size:var(--small-size); color:var(--text-secondary);">₹38,000 Cr market · 22 languages</div></div>
-                <div class="card" style="opacity:0.5; padding:clamp(0.3rem,0.6vw,0.6rem) clamp(0.5rem,1vw,1rem);"><div style="font-size:var(--small-size); font-weight:600;">YouTube</div><div style="font-size:var(--label-size); color:var(--text-muted);">Free · UGC · Low production</div></div>
-            </div>
+<section class="slide bg-white" data-slide="3">
+  <div class="slide-inner">
+    <img class="logo" src="https://media.stage.in/static/stage_logo_stack.png" alt="STAGE">
+    <div class="content">
+      <span class="section-label reveal">The Opportunity</span>
+      <h2 class="slide-title reveal">1.5 Billion people.<br>No entertainment for their culture.</h2>
+      <div class="divider reveal"></div>
+      <div class="grid-2 mt reveal" style="align-items:center;">
+        <div>
+          <p class="body-text" style="margin-bottom:clamp(6px,1vh,14px);">Cultural identity transcends socioeconomic status. Distinct cultures. Distinct identities. Distinct entertainment needs.</p>
+          <div class="callout"><strong>54%</strong> of subscribers had never paid for any OTT before. <strong>New spend, not stolen share.</strong></div>
         </div>
+        <div style="display:flex;flex-direction:column;gap:clamp(4px,0.5vh,7px);">
+          <div class="card" style="opacity:0.5;padding:clamp(4px,0.5vh,8px) clamp(8px,1vh,14px);"><div style="font-size:clamp(9px,1.1vh,13px);font-weight:600;">Netflix / JioHotstar</div><div class="label-text">Premium · Hindi & English</div></div>
+          <div class="card" style="border:2px solid var(--red);padding:clamp(8px,1.2vh,16px);"><div style="font-size:clamp(12px,1.6vh,20px);font-weight:800;color:var(--red);">STAGE</div><div class="small-text">₹38,000 Cr market · 22 languages</div></div>
+          <div class="card" style="opacity:0.5;padding:clamp(4px,0.5vh,8px) clamp(8px,1vh,14px);"><div style="font-size:clamp(9px,1.1vh,13px);font-weight:600;">YouTube</div><div class="label-text">Free · UGC · Low production</div></div>
+        </div>
+      </div>
     </div>
-    <div class="slide-footer">Private & Confidential <span>4</span></div>
+    <div class="slide-num">04 / 19</div>
+    <div class="footer">Private & Confidential</div>
+  </div>
 </section>
 
 <!-- SLIDE 5: THE PROBLEM -->
-<section class="slide bg-white">
-    <div class="slide-content">
-        <span class="section-label reveal">The Problem</span>
-        <h2 class="slide-title reveal">A structural cost problem.<br>Not a strategic choice.</h2>
-        <div class="divider reveal"></div>
-        <div style="display:flex; flex-direction:column; gap:clamp(0.15rem,0.3vw,0.25rem); margin-top:var(--element-gap);">
-            <div class="stack-bar reveal"><span class="bar-title">Traditional IP: ₹X Crore per title</span><span class="bar-desc">Must amortize across largest audience</span></div>
-            <div class="stack-bar reveal"><span class="bar-title">→ Hindi (500M speakers)</span><span class="bar-desc">Established ecosystem</span></div>
-            <div class="stack-bar reveal"><span class="bar-title">→ Tamil, Telugu</span><span class="bar-desc">Large audiences, existing studios</span></div>
-            <div class="stack-bar barrier reveal"><span class="bar-title" style="color:var(--red);">COST BARRIER</span><span class="bar-desc">Haryanvi? Bhojpuri? Rajasthani? — No economics.</span></div>
-            <div class="stack-bar solution reveal"><span class="bar-title" style="color:var(--green);">STAGE built it from scratch</span><span class="bar-desc">Now AI changes economics.</span></div>
-        </div>
+<section class="slide bg-light" data-slide="4">
+  <div class="slide-inner">
+    <img class="logo" src="https://media.stage.in/static/stage_logo_stack.png" alt="STAGE">
+    <div class="content">
+      <span class="section-label reveal">The Problem</span>
+      <h2 class="slide-title reveal">A structural cost problem.<br>Not a strategic choice.</h2>
+      <div class="divider reveal"></div>
+      <div class="mt" style="display:flex;flex-direction:column;gap:clamp(2px,0.25vh,3px);">
+        <div class="bar reveal"><span class="bar-title">Traditional IP: ₹X Crore per title</span><span class="bar-desc">Must amortize across largest audience</span></div>
+        <div class="bar reveal"><span class="bar-title">→ Hindi (500M speakers)</span><span class="bar-desc">Established ecosystem</span></div>
+        <div class="bar reveal"><span class="bar-title">→ Tamil, Telugu</span><span class="bar-desc">Large audiences, existing studios</span></div>
+        <div class="bar barrier reveal"><span class="bar-title" style="color:var(--red);">COST BARRIER</span><span class="bar-desc">Haryanvi? Bhojpuri? Rajasthani? — No economics.</span></div>
+        <div class="bar solution reveal"><span class="bar-title" style="color:var(--green);">STAGE built it from scratch</span><span class="bar-desc">Now AI changes economics.</span></div>
+      </div>
     </div>
-    <div class="slide-footer">Private & Confidential <span>5</span></div>
+    <div class="slide-num">05 / 19</div>
+    <div class="footer">Private & Confidential</div>
+  </div>
 </section>
 
 <!-- SLIDE 6: WHAT WE BUILT -->
-<section class="slide bg-light">
-    <div class="slide-content">
-        <span class="section-label reveal">What We Built</span>
-        <h2 class="slide-title reveal">Productising the cultures.<br>One IP, every community.</h2>
-        <div class="divider reveal"></div>
-        <div class="grid-3 reveal" style="margin-top:var(--element-gap);">
-            <div class="card card-accent">
-                <h3>The IP Engine</h3>
-                <p class="body">Long Series · Micro Dramas · Films<br><br>Produce once → Adapt to 14+ cultures<br>₹8,000/episode adaptation</p>
-                <div style="margin-top:0.5rem; font-size:var(--label-size); color:var(--red); font-weight:600;">Every IP is multi-cultural from day one</div>
-            </div>
-            <div class="card card-accent">
-                <h3>Distribution</h3>
-                <p class="body">AI personalization → tailored discovery<br><br>Character Bots → 40% higher D1<br>New form factors</p>
-                <div style="margin-top:0.5rem; font-size:var(--label-size); color:var(--red); font-weight:600;">We distribute culture, not just content</div>
-            </div>
-            <div class="card card-accent">
-                <h3>The Playbook</h3>
-                <p class="body">4 live markets<br><br>90%+ premium cultural IP in pioneers<br>Built the industry from scratch</p>
-                <div style="margin-top:0.5rem; font-size:var(--label-size); color:var(--red); font-weight:600;">Haryanvi ✓ Rajasthani ✓ Bhojpuri ✓ Gujarati ✓</div>
-            </div>
+<section class="slide bg-white" data-slide="5">
+  <div class="slide-inner">
+    <img class="logo" src="https://media.stage.in/static/stage_logo_stack.png" alt="STAGE">
+    <div class="content">
+      <span class="section-label reveal">What We Built</span>
+      <h2 class="slide-title reveal">Productising the cultures.<br>One IP, every community.</h2>
+      <div class="divider reveal"></div>
+      <div class="grid-3 mt reveal">
+        <div class="card card-accent">
+          <h3>The IP Engine</h3>
+          <p>Long Series · Micro Dramas · Films<br><br>Produce once → Adapt to 14+ cultures<br>₹8,000/episode adaptation</p>
+          <div class="card-tag">Every IP is multi-cultural from day one</div>
         </div>
+        <div class="card card-accent">
+          <h3>Distribution</h3>
+          <p>AI personalization → tailored discovery<br><br>Character Bots → 40% higher D1<br>New form factors</p>
+          <div class="card-tag">We distribute culture, not just content</div>
+        </div>
+        <div class="card card-accent">
+          <h3>The Playbook</h3>
+          <p>4 live markets<br><br>90%+ premium cultural IP in pioneers<br>Built the industry from scratch</p>
+          <div class="card-tag">Haryanvi ✓ Rajasthani ✓ Bhojpuri ✓ Gujarati ✓</div>
+        </div>
+      </div>
     </div>
-    <div class="slide-footer">Private & Confidential <span>6</span></div>
+    <div class="slide-num">06 / 19</div>
+    <div class="footer">Private & Confidential</div>
+  </div>
 </section>
 
 <!-- SLIDE 7: BUSINESS EVOLUTION -->
-<section class="slide bg-white">
-    <div class="slide-content">
-        <span class="section-label reveal">Business Evolution</span>
-        <h2 class="slide-title reveal">How we evolved the business.<br>And why it matters.</h2>
-        <div class="divider reveal"></div>
-        <div class="timeline reveal" style="margin-top:var(--element-gap);">
-            <div class="timeline-item"><div class="date">Jan 25</div><div class="name">Series B</div><div class="impact">Stopped marketing</div></div>
-            <div class="timeline-item"><div class="date">May 25</div><div class="name">Long Series</div><div class="impact">2.3x LTV</div></div>
-            <div class="timeline-item"><div class="date">2025</div><div class="name">Micro Dramas</div><div class="impact">3x D30 retention</div></div>
-            <div class="timeline-item"><div class="date">2025</div><div class="name">Personalization</div><div class="impact">20%↑ consumption</div></div>
-            <div class="timeline-item"><div class="date">2025</div><div class="name">Character Bots</div><div class="impact">40%↑ D1 retention</div></div>
-            <div class="timeline-item"><div class="date">2025</div><div class="name">Player+Hooks</div><div class="impact">Completion ↑</div></div>
-        </div>
-        <div class="callout reveal" style="margin-top:var(--element-gap);"><strong>Renewal rates climb each cycle:</strong> [X]% at R1 → [Y]% by R6. The habit deepens. The opposite of most entertainment platforms.</div>
+<section class="slide bg-blush" data-slide="6">
+  <div class="slide-inner">
+    <img class="logo" src="https://media.stage.in/static/stage_logo_stack.png" alt="STAGE">
+    <div class="content">
+      <span class="section-label reveal">Business Evolution</span>
+      <h2 class="slide-title reveal">How we evolved the business.<br>And why it matters.</h2>
+      <div class="divider reveal"></div>
+      <div class="grid-6 mt reveal">
+        <div class="tl-item"><div class="date">Jan 25</div><div class="name">Series B</div><div class="impact">Stopped marketing</div></div>
+        <div class="tl-item"><div class="date">May 25</div><div class="name">Long Series</div><div class="impact">2.3x LTV</div></div>
+        <div class="tl-item"><div class="date">2025</div><div class="name">Micro Dramas</div><div class="impact">3x D30 retention</div></div>
+        <div class="tl-item"><div class="date">2025</div><div class="name">Personalization</div><div class="impact">20%↑ consumption</div></div>
+        <div class="tl-item"><div class="date">2025</div><div class="name">Character Bots</div><div class="impact">40%↑ D1 retention</div></div>
+        <div class="tl-item"><div class="date">2025</div><div class="name">Player+Hooks</div><div class="impact">Completion ↑</div></div>
+      </div>
+      <div class="callout mt reveal"><strong>Renewal rates climb each cycle:</strong> [X]% at R1 → [Y]% by R6. The habit deepens. The opposite of most entertainment platforms.</div>
     </div>
-    <div class="slide-footer">Private & Confidential <span>7</span></div>
+    <div class="slide-num">07 / 19</div>
+    <div class="footer">Private & Confidential</div>
+  </div>
 </section>
 
 <!-- SLIDE 8: PLAYBOOK REPEATS -->
-<section class="slide bg-light">
-    <div class="slide-content">
-        <span class="section-label reveal">The Playbook Repeats</span>
-        <h2 class="slide-title reveal">23 → 16 → 12 months.<br>Each market faster than the last.</h2>
-        <div class="divider reveal"></div>
-        <table class="data-table reveal" style="margin-top:var(--element-gap);">
-            <thead><tr><th>Milestone</th><th>Haryanvi</th><th>Rajasthani</th><th>Bhojpuri</th><th>Gujarati</th></tr></thead>
-            <tbody>
-                <tr><td>Time to [X]K subs</td><td>[X] mo</td><td>[X] mo</td><td>[X] mo</td><td>[X] mo</td></tr>
-                <tr><td>CAC below ₹[X]</td><td>[X] mo</td><td>[X] mo</td><td>[X] mo</td><td>[X] mo</td></tr>
-                <tr><td>Growth Rate</td><td>[X]%</td><td>[X]%</td><td>[X]%</td><td>[X]%</td></tr>
-                <tr><td>Path to profit</td><td>23 mo ✓</td><td>16 mo ✓</td><td>~12 mo</td><td>Early</td></tr>
-            </tbody>
-        </table>
-        <div class="callout reveal" style="margin-top:var(--element-gap);">With AI cultural adaptation, <strong>next markets launch with entire library on day one.</strong></div>
+<section class="slide bg-white" data-slide="7">
+  <div class="slide-inner">
+    <img class="logo" src="https://media.stage.in/static/stage_logo_stack.png" alt="STAGE">
+    <div class="content">
+      <span class="section-label reveal">The Playbook Repeats</span>
+      <h2 class="slide-title reveal">23 → 16 → 12 months.<br>Each market faster than the last.</h2>
+      <div class="divider reveal"></div>
+      <table class="dtable mt reveal">
+        <thead><tr><th>Milestone</th><th>Haryanvi</th><th>Rajasthani</th><th>Bhojpuri</th><th>Gujarati</th></tr></thead>
+        <tbody>
+          <tr><td>Time to [X]K subs</td><td>[X] mo</td><td>[X] mo</td><td>[X] mo</td><td>[X] mo</td></tr>
+          <tr><td>CAC below ₹[X]</td><td>[X] mo</td><td>[X] mo</td><td>[X] mo</td><td>[X] mo</td></tr>
+          <tr><td>Growth Rate</td><td>[X]%</td><td>[X]%</td><td>[X]%</td><td>[X]%</td></tr>
+          <tr><td>Path to profit</td><td>23 mo ✓</td><td>16 mo ✓</td><td>~12 mo</td><td>Early</td></tr>
+        </tbody>
+      </table>
+      <div class="callout mt reveal">With AI cultural adaptation, <strong>next markets launch with entire library on day one.</strong></div>
     </div>
-    <div class="slide-footer">Private & Confidential <span>8</span></div>
+    <div class="slide-num">08 / 19</div>
+    <div class="footer">Private & Confidential</div>
+  </div>
 </section>
 
 <!-- SLIDE 9: AI-NATIVE TRANSFORMATION -->
-<section class="slide bg-dark">
-    <div class="slide-content">
-        <span class="section-label reveal">AI-Native Transformation</span>
-        <h2 class="slide-title reveal">Transforming STAGE<br>into an AI-native business.</h2>
-        <div class="divider reveal"></div>
-        <div class="vs-grid reveal" style="margin-top:var(--content-gap);">
-            <div class="card" style="background:rgba(255,255,255,0.05); border-color:rgba(255,255,255,0.1);">
-                <h3 style="color:#fff;">Strong Business</h3>
-                <p style="color:rgba(255,255,255,0.6); line-height:1.6;">✓ 2 profitable markets<br>✓ Repeatable playbook<br>✓ Growing retention</p>
-                <div style="margin-top:0.6rem; font-size:var(--small-size); color:rgba(255,255,255,0.4); font-style:italic;">But: linear scaling. Each market = new content + team.</div>
-            </div>
-            <div class="vs-divider">→</div>
-            <div class="card" style="background:rgba(225,13,56,0.1); border-color:var(--red);">
-                <h3 style="color:var(--red);">AI-Native Architecture</h3>
-                <p style="color:rgba(255,255,255,0.7); line-height:1.6;">⚡ Creation, adaptation, distribution — all AI<br>⚡ One insight → 14 cultures<br>⚡ Team doesn't scale linearly</p>
-                <div style="margin-top:0.6rem; font-size:var(--small-size); color:var(--red); font-weight:600;">4 → 14 markets. No proportional cost increase.</div>
-            </div>
+<section class="slide bg-dark" data-slide="8">
+  <div class="slide-inner">
+    <img class="logo" src="https://media.stage.in/static/stage_logo_horizontal.webp" alt="STAGE">
+    <div class="content">
+      <span class="section-label reveal">AI-Native Transformation</span>
+      <h2 class="slide-title reveal">Transforming STAGE<br>into an AI-native business.</h2>
+      <div class="divider reveal"></div>
+      <div class="vs-grid mt reveal">
+        <div class="card">
+          <h3>Strong Business</h3>
+          <p style="line-height:1.7;">✓ 2 profitable markets<br>✓ Repeatable playbook<br>✓ Growing retention</p>
+          <div style="margin-top:clamp(4px,0.6vh,8px);font-size:clamp(8px,0.9vh,11px);color:rgba(255,255,255,0.4);font-style:italic;">But: linear scaling. Each market = new content + team.</div>
         </div>
+        <div class="vs-divider">→</div>
+        <div class="card" style="background:rgba(225,13,56,0.1);border-color:var(--red);">
+          <h3 style="color:var(--red);">AI-Native Architecture</h3>
+          <p style="color:rgba(255,255,255,0.7);line-height:1.7;">⚡ Creation, adaptation, distribution — all AI<br>⚡ One insight → 14 cultures<br>⚡ Team doesn't scale linearly</p>
+          <div style="margin-top:clamp(4px,0.6vh,8px);font-size:clamp(8px,1vh,12px);color:var(--red);font-weight:600;">4 → 14 markets. No proportional cost increase.</div>
+        </div>
+      </div>
     </div>
-    <div class="slide-footer">Private & Confidential <span>9</span></div>
+    <div class="slide-num">09 / 19</div>
+    <div class="footer">Private & Confidential</div>
+  </div>
 </section>
 
 <!-- SLIDE 10: AGENTIC IP CREATION -->
-<section class="slide bg-white">
-    <div class="slide-content">
-        <span class="section-label reveal">Agentic IP Creation</span>
-        <h2 class="slide-title reveal">From idea to screen.<br>No camera. No crew. Full AI.</h2>
-        <div class="divider reveal"></div>
-        <div class="pipeline reveal" style="margin-top:var(--content-gap);">
-            <div class="pipeline-step">💡 Ideation</div><span class="pipeline-arrow">→</span>
-            <div class="pipeline-step">📖 Story</div><span class="pipeline-arrow">→</span>
-            <div class="pipeline-step">👤 Characters</div><span class="pipeline-arrow">→</span>
-            <div class="pipeline-step">📝 Screenplay</div><span class="pipeline-arrow">→</span>
-            <div class="pipeline-step">🎨 Storyboard</div><span class="pipeline-arrow">→</span>
-            <div class="pipeline-step">🎬 Production</div>
-        </div>
-        <div class="grid-3 reveal" style="margin-top:var(--content-gap);">
-            <div class="card" style="text-align:center; opacity:0.6;"><div style="font-size:var(--small-size); font-weight:600;">Traditional</div><div style="font-size:var(--label-size); color:var(--text-muted);">[X] months · [Y]-person crew · ₹[Z] crore</div></div>
-            <div style="display:flex; align-items:center; justify-content:center; font-size:var(--h3-size); color:var(--red); font-weight:800;">vs</div>
-            <div class="card" style="text-align:center; border:2px solid var(--red);"><div style="font-size:var(--small-size); font-weight:600; color:var(--red);">STAGE Agentic</div><div style="font-size:var(--label-size); color:var(--text-secondary);">[X] weeks · [B]-person + AI · ₹[C] lakh</div></div>
-        </div>
-        <p class="reveal" style="text-align:center; font-size:var(--body-size); color:var(--text-secondary); margin-top:var(--element-gap); font-style:italic;">Creative decisions are human. Everything else is AI.</p>
+<section class="slide bg-light" data-slide="9">
+  <div class="slide-inner">
+    <img class="logo" src="https://media.stage.in/static/stage_logo_stack.png" alt="STAGE">
+    <div class="content">
+      <span class="section-label reveal">Agentic IP Creation</span>
+      <h2 class="slide-title reveal">From idea to screen.<br>No camera. No crew. Full AI.</h2>
+      <div class="divider reveal"></div>
+      <div class="pipeline mt reveal">
+        <div class="pipe-step">💡 Ideation</div><span class="pipe-arrow">→</span>
+        <div class="pipe-step">📖 Story</div><span class="pipe-arrow">→</span>
+        <div class="pipe-step">👤 Characters</div><span class="pipe-arrow">→</span>
+        <div class="pipe-step">📝 Screenplay</div><span class="pipe-arrow">→</span>
+        <div class="pipe-step">🎨 Storyboard</div><span class="pipe-arrow">→</span>
+        <div class="pipe-step">🎬 Production</div>
+      </div>
+      <div class="grid-3 mt reveal">
+        <div class="card" style="text-align:center;opacity:0.6;"><div class="small-text bold">Traditional</div><div class="label-text">[X] months · [Y]-person crew · ₹[Z] crore</div></div>
+        <div style="display:flex;align-items:center;justify-content:center;font-size:clamp(14px,2vh,26px);color:var(--red);font-weight:800;">vs</div>
+        <div class="card" style="text-align:center;border:2px solid var(--red);"><div class="small-text bold" style="color:var(--red);">STAGE Agentic</div><div class="label-text">[X] weeks · [B]-person + AI · ₹[C] lakh</div></div>
+      </div>
+      <p class="reveal small-text" style="text-align:center;margin-top:clamp(6px,1vh,14px);font-style:italic;">Creative decisions are human. Everything else is AI.</p>
     </div>
-    <div class="slide-footer">Private & Confidential <span>10</span></div>
+    <div class="slide-num">10 / 19</div>
+    <div class="footer">Private & Confidential</div>
+  </div>
 </section>
 
 <!-- SLIDE 11: CULTURAL ADAPTATION -->
-<section class="slide bg-blush">
-    <div class="slide-content">
-        <span class="section-label reveal">Cultural Adaptation</span>
-        <h2 class="slide-title reveal">This is the moment. Watch closely.</h2>
-        <div class="divider reveal"></div>
-        <p class="reveal" style="font-size:var(--body-size); color:var(--red); font-weight:600; margin-bottom:var(--element-gap);">🌍 LIVE DEMO: Cultural Adaptation — THE PITCH MOMENT</p>
-        <div class="grid-2 reveal" style="margin-bottom:var(--content-gap);">
-            <div class="card" style="text-align:center; padding:clamp(0.8rem,1.5vw,1.5rem);"><div style="font-size:var(--small-size); font-weight:600; color:var(--text-muted); margin-bottom:0.4rem;">ORIGINAL — Haryanvi</div><div style="font-size:2rem;">🎭</div></div>
-            <div class="card" style="text-align:center; padding:clamp(0.8rem,1.5vw,1.5rem); border:2px solid var(--red);"><div style="font-size:var(--small-size); font-weight:600; color:var(--red); margin-bottom:0.4rem;">ADAPTED — Rajasthani → Marathi → ...</div><div style="font-size:2rem;">🎭</div></div>
-        </div>
-        <p class="reveal" style="font-size:var(--small-size); color:var(--text-secondary); text-align:center;">Humor ✓  Music ✓  References ✓  Idioms ✓  Customs ✓  Food ✓  Clothes ✓</p>
-        <div class="reveal" style="text-align:center; margin-top:var(--element-gap);">
-            <span style="font-size:clamp(1.5rem,3vw,2.5rem); font-weight:800; color:var(--red);">₹8,000 per episode</span>
-            <p style="font-size:var(--small-size); color:var(--text-secondary); margin-top:0.2rem;">155 cultural markers · 26 categories · NOT dubbing — cultural TRANSFORMATION</p>
-        </div>
+<section class="slide bg-blush" data-slide="10">
+  <div class="slide-inner">
+    <img class="logo" src="https://media.stage.in/static/stage_logo_stack.png" alt="STAGE">
+    <div class="content">
+      <span class="section-label reveal">Cultural Adaptation</span>
+      <h2 class="slide-title reveal">This is the moment. Watch closely.</h2>
+      <div class="divider reveal"></div>
+      <p class="reveal small-text" style="color:var(--red);font-weight:600;">🌍 LIVE DEMO: Cultural Adaptation — THE PITCH MOMENT</p>
+      <div class="grid-2 mt reveal">
+        <div class="card" style="text-align:center;padding:clamp(10px,1.8vh,24px);"><div class="small-text bold" style="color:var(--muted);margin-bottom:4px;">ORIGINAL — Haryanvi</div><div style="font-size:clamp(20px,3vh,40px);">🎭</div></div>
+        <div class="card" style="text-align:center;padding:clamp(10px,1.8vh,24px);border:2px solid var(--red);"><div class="small-text bold" style="color:var(--red);margin-bottom:4px;">ADAPTED — Rajasthani → Marathi → ...</div><div style="font-size:clamp(20px,3vh,40px);">🎭</div></div>
+      </div>
+      <p class="reveal label-text mt-sm" style="text-align:center;">Humor ✓  Music ✓  References ✓  Idioms ✓  Customs ✓  Food ✓  Clothes ✓</p>
+      <div class="reveal mt" style="text-align:center;">
+        <span style="font-size:clamp(18px,3vh,38px);font-weight:800;color:var(--red);">₹8,000 per episode</span>
+        <p class="label-text" style="margin-top:3px;">155 cultural markers · 26 categories · NOT dubbing — cultural TRANSFORMATION</p>
+      </div>
     </div>
-    <div class="slide-footer">Private & Confidential <span>11</span></div>
+    <div class="slide-num">11 / 19</div>
+    <div class="footer">Private & Confidential</div>
+  </div>
 </section>
 
 <!-- SLIDE 12: CONSUMER AI -->
-<section class="slide bg-white">
-    <div class="slide-content">
-        <span class="section-label reveal">Consumer AI</span>
-        <h2 class="slide-title reveal">Every viewer gets their own STAGE.</h2>
-        <div class="divider reveal"></div>
-        <div class="grid-3 reveal" style="margin-top:var(--content-gap);">
-            <div class="card card-accent" style="text-align:center;"><div class="metric">20%</div><div class="metric-label">Higher Consumption</div><p style="font-size:var(--label-size); color:var(--text-muted); margin-top:0.2rem;">Personalized discovery</p></div>
-            <div class="card card-accent" style="text-align:center;"><div class="metric">40%</div><div class="metric-label">Higher D1 Retention</div><p style="font-size:var(--label-size); color:var(--text-muted); margin-top:0.2rem;">Character Bots</p></div>
-            <div class="card card-accent" style="text-align:center;"><div class="metric">₹0</div><div class="metric-label">Marginal Cost</div><p style="font-size:var(--label-size); color:var(--text-muted); margin-top:0.2rem;">AI-native, not bolt-on</p></div>
-        </div>
-        <p class="reveal" style="text-align:center; font-size:var(--body-size); color:var(--text-secondary); margin-top:var(--content-gap); font-style:italic;">Same content library. Completely different STAGE. Zero marginal cost.</p>
+<section class="slide bg-white" data-slide="11">
+  <div class="slide-inner">
+    <img class="logo" src="https://media.stage.in/static/stage_logo_stack.png" alt="STAGE">
+    <div class="content">
+      <span class="section-label reveal">Consumer AI</span>
+      <h2 class="slide-title reveal">Every viewer gets their own STAGE.</h2>
+      <div class="divider reveal"></div>
+      <div class="grid-3 mt reveal">
+        <div class="card card-accent" style="text-align:center;"><div class="metric">20%</div><div class="metric-label">Higher Consumption</div><p class="label-text" style="margin-top:3px;">Personalized discovery</p></div>
+        <div class="card card-accent" style="text-align:center;"><div class="metric">40%</div><div class="metric-label">Higher D1 Retention</div><p class="label-text" style="margin-top:3px;">Character Bots</p></div>
+        <div class="card card-accent" style="text-align:center;"><div class="metric">₹0</div><div class="metric-label">Marginal Cost</div><p class="label-text" style="margin-top:3px;">AI-native, not bolt-on</p></div>
+      </div>
+      <p class="reveal body-text mt" style="text-align:center;font-style:italic;color:var(--muted);">Same content library. Completely different STAGE. Zero marginal cost.</p>
     </div>
-    <div class="slide-footer">Private & Confidential <span>12</span></div>
+    <div class="slide-num">12 / 19</div>
+    <div class="footer">Private & Confidential</div>
+  </div>
 </section>
 
 <!-- SLIDE 13: UNIT ECONOMICS -->
-<section class="slide bg-light">
-    <div class="slide-content">
-        <span class="section-label reveal">Unit Economics</span>
-        <h2 class="slide-title reveal">From media margins to tech margins.<br>We're already there.</h2>
-        <div class="divider reveal"></div>
-        <div class="grid-3 reveal" style="margin-top:var(--element-gap);">
-            <div class="card" style="text-align:center; opacity:0.6;"><div style="font-size:var(--label-size); font-weight:600; color:var(--text-muted);">TYPICAL MEDIA</div><div style="font-size:clamp(1.5rem,2.5vw,2rem); font-weight:800; margin-top:0.2rem;">30-40%</div></div>
-            <div class="card" style="text-align:center; opacity:0.6;"><div style="font-size:var(--label-size); font-weight:600; color:var(--text-muted);">TYPICAL TECH</div><div style="font-size:clamp(1.5rem,2.5vw,2rem); font-weight:800; margin-top:0.2rem;">70-80%</div></div>
-            <div class="card" style="text-align:center; border:2px solid var(--red);"><div style="font-size:var(--label-size); font-weight:600; color:var(--red);">STAGE TODAY</div><div style="font-size:clamp(1.5rem,2.5vw,2rem); font-weight:800; color:var(--red); margin-top:0.2rem;">85%</div><div style="font-size:var(--label-size); color:var(--text-secondary); margin-top:0.15rem;">→ tracking to 95%</div></div>
-        </div>
-        <div class="grid-3 reveal" style="margin-top:var(--element-gap);">
-            <div class="card"><h3 style="font-size:var(--small-size);">🎬 IP Creation</h3><p style="font-size:var(--label-size); color:var(--text-secondary); line-height:1.5;">60-80% cost reduction via agentic workflows</p></div>
-            <div class="card"><h3 style="font-size:var(--small-size);">🌍 Market Launches</h3><p style="font-size:var(--label-size); color:var(--text-secondary); line-height:1.5;">All markets simultaneously — no local production</p></div>
-            <div class="card"><h3 style="font-size:var(--small-size);">📈 Result</h3><p style="font-size:var(--label-size); color:var(--text-secondary); line-height:1.5;">Each new market = margin expansion. AI-native platform.</p></div>
-        </div>
+<section class="slide bg-light" data-slide="12">
+  <div class="slide-inner">
+    <img class="logo" src="https://media.stage.in/static/stage_logo_stack.png" alt="STAGE">
+    <div class="content">
+      <span class="section-label reveal">Unit Economics</span>
+      <h2 class="slide-title reveal">From media margins to tech margins.<br>We're already there.</h2>
+      <div class="divider reveal"></div>
+      <div class="grid-3 mt reveal">
+        <div class="card" style="text-align:center;opacity:0.6;"><div class="label-text bold">TYPICAL MEDIA</div><div style="font-size:clamp(18px,2.8vh,36px);font-weight:800;margin-top:3px;">30-40%</div></div>
+        <div class="card" style="text-align:center;opacity:0.6;"><div class="label-text bold">TYPICAL TECH</div><div style="font-size:clamp(18px,2.8vh,36px);font-weight:800;margin-top:3px;">70-80%</div></div>
+        <div class="card" style="text-align:center;border:2px solid var(--red);"><div class="label-text bold" style="color:var(--red);">STAGE TODAY</div><div style="font-size:clamp(18px,2.8vh,36px);font-weight:800;color:var(--red);margin-top:3px;">85%</div><div class="label-text" style="margin-top:2px;">→ tracking to 95%</div></div>
+      </div>
+      <div class="grid-3 mt-sm reveal">
+        <div class="card"><h3>🎬 IP Creation</h3><p>60-80% cost reduction via agentic workflows</p></div>
+        <div class="card"><h3>🌍 Market Launches</h3><p>All markets simultaneously — no local production</p></div>
+        <div class="card"><h3>📈 Result</h3><p>Each new market = margin expansion. AI-native platform.</p></div>
+      </div>
     </div>
-    <div class="slide-footer">Private & Confidential <span>13</span></div>
+    <div class="slide-num">13 / 19</div>
+    <div class="footer">Private & Confidential</div>
+  </div>
 </section>
 
 <!-- SLIDE 14: COMPETITIVE MOAT -->
-<section class="slide bg-white">
-    <div class="slide-content">
-        <span class="section-label reveal">Competitive Moat</span>
-        <h2 class="slide-title reveal">How we win.<br>The three things that matter.</h2>
-        <div class="divider reveal"></div>
-        <div class="grid-3 reveal" style="margin-top:var(--element-gap);">
-            <div class="card card-accent"><h3>Distribution</h3><p class="body" style="line-height:1.6;">First-mover in 14 markets<br>Millions with established habits<br>Refined playbooks across 4 markets</p><div style="margin-top:0.4rem; font-size:var(--label-size); color:var(--red); font-weight:600;">Every month → harder to displace</div></div>
-            <div class="card card-accent"><h3>Brand & Trust</h3><p class="body" style="line-height:1.6;">Cultural institution, not an app<br>54% never paid for OTT before<br>Trust earned through respect</p><div style="margin-top:0.4rem; font-size:var(--label-size); color:var(--red); font-weight:600;">Trust doesn't transfer to new entrants</div></div>
-            <div class="card card-accent"><h3>Cultural Context</h3><p class="body" style="line-height:1.6;">155 markers × 26 categories<br>1000s of hours of authentic IP<br>Creator relationships across 12+ langs</p><div style="margin-top:0.4rem; font-size:var(--label-size); color:var(--red); font-weight:600;">Not in any training set</div></div>
+<section class="slide bg-white" data-slide="13">
+  <div class="slide-inner">
+    <img class="logo" src="https://media.stage.in/static/stage_logo_stack.png" alt="STAGE">
+    <div class="content">
+      <span class="section-label reveal">Competitive Moat</span>
+      <h2 class="slide-title reveal">How we win.<br>The three things that matter.</h2>
+      <div class="divider reveal"></div>
+      <div class="grid-3 mt reveal">
+        <div class="card card-accent">
+          <h3>Distribution</h3>
+          <p style="line-height:1.6;">First-mover in 14 markets<br>Millions with established habits<br>Refined playbooks across 4 markets</p>
+          <div class="card-tag">Every month → harder to displace</div>
         </div>
-        <p class="reveal" style="font-size:var(--small-size); color:var(--text-secondary); margin-top:var(--element-gap); text-align:center; font-style:italic;">AI advantage = real but time-limited. What it builds = permanent.</p>
+        <div class="card card-accent">
+          <h3>Brand & Trust</h3>
+          <p style="line-height:1.6;">Cultural institution, not an app<br>54% never paid for OTT before<br>Trust earned through respect</p>
+          <div class="card-tag">Trust doesn't transfer to new entrants</div>
+        </div>
+        <div class="card card-accent">
+          <h3>Cultural Context</h3>
+          <p style="line-height:1.6;">155 markers × 26 categories<br>1000s of hours of authentic IP<br>Creator relationships across 12+ langs</p>
+          <div class="card-tag">Not in any training set</div>
+        </div>
+      </div>
+      <p class="reveal small-text mt" style="text-align:center;font-style:italic;">AI advantage = real but time-limited. What it builds = permanent.</p>
     </div>
-    <div class="slide-footer">Private & Confidential <span>14</span></div>
+    <div class="slide-num">14 / 19</div>
+    <div class="footer">Private & Confidential</div>
+  </div>
 </section>
 
 <!-- SLIDE 15: GROWTH ROADMAP -->
-<section class="slide bg-light">
-    <div class="slide-content">
-        <span class="section-label reveal">Growth Roadmap</span>
-        <h2 class="slide-title reveal">14 languages. Each a $10-25M business.</h2>
-        <div class="divider reveal"></div>
-        <table class="data-table reveal" style="margin-top:var(--element-gap);">
-            <thead><tr><th>Language</th><th>Speakers</th><th>Status</th><th>Target</th></tr></thead>
-            <tbody>
-                <tr><td><strong>Haryanvi</strong></td><td>30M+</td><td style="color:var(--green);">✓ Profitable</td><td>Scaling</td></tr>
-                <tr><td><strong>Rajasthani</strong></td><td>50M+</td><td style="color:var(--green);">✓ Profitable</td><td>Scaling</td></tr>
-                <tr><td><strong>Bhojpuri</strong></td><td>50M+</td><td style="color:var(--green);">✓ ~12mo profit</td><td>Strong</td></tr>
-                <tr><td><strong>Gujarati</strong></td><td>55M+</td><td style="color:var(--green);">✓ Early</td><td>Building</td></tr>
-                <tr><td>Marathi</td><td>83M+</td><td>Apr 2026</td><td>$10-25M</td></tr>
-                <tr><td>Punjabi · Bangla</td><td>130M+</td><td>Jun-Aug 2026</td><td>$10-25M</td></tr>
-                <tr><td>Tamil · Telugu</td><td>155M+</td><td>Dec 2026</td><td>$15-25M each</td></tr>
-                <tr><td>+ 4 more</td><td>131M+</td><td>2026</td><td>$10-15M each</td></tr>
-            </tbody>
-        </table>
-        <div class="callout reveal" style="margin-top:var(--element-gap); text-align:center;"><strong>Today: ~$20M ARR → Target: $100-200M ARR</strong><br><span style="color:var(--text-muted);">10 languages × $10M = $100M+ · Top 5 × $25M = $125M</span></div>
+<section class="slide bg-blush" data-slide="14">
+  <div class="slide-inner">
+    <img class="logo" src="https://media.stage.in/static/stage_logo_stack.png" alt="STAGE">
+    <div class="content">
+      <span class="section-label reveal">Growth Roadmap</span>
+      <h2 class="slide-title reveal">14 languages. Each a $10-25M business.</h2>
+      <div class="divider reveal"></div>
+      <table class="dtable mt reveal">
+        <thead><tr><th>Language</th><th>Speakers</th><th>Status</th><th>Target</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Haryanvi</strong></td><td>30M+</td><td style="color:var(--green);">✓ Profitable</td><td>Scaling</td></tr>
+          <tr><td><strong>Rajasthani</strong></td><td>50M+</td><td style="color:var(--green);">✓ Profitable</td><td>Scaling</td></tr>
+          <tr><td><strong>Bhojpuri</strong></td><td>50M+</td><td style="color:var(--green);">✓ ~12mo profit</td><td>Strong</td></tr>
+          <tr><td><strong>Gujarati</strong></td><td>55M+</td><td style="color:var(--green);">✓ Early</td><td>Building</td></tr>
+          <tr><td>Marathi</td><td>83M+</td><td>Apr 2026</td><td>$10-25M</td></tr>
+          <tr><td>Punjabi · Bangla</td><td>130M+</td><td>Jun-Aug 2026</td><td>$10-25M</td></tr>
+          <tr><td>Tamil · Telugu</td><td>155M+</td><td>Dec 2026</td><td>$15-25M each</td></tr>
+          <tr><td>+ 4 more</td><td>131M+</td><td>2026</td><td>$10-15M each</td></tr>
+        </tbody>
+      </table>
+      <div class="callout mt reveal" style="text-align:center;"><strong>Today: ~$20M ARR → Target: $100-200M ARR</strong><br><span style="color:var(--muted);">10 languages × $10M = $100M+ · Top 5 × $25M = $125M</span></div>
     </div>
-    <div class="slide-footer">Private & Confidential <span>15</span></div>
+    <div class="slide-num">15 / 19</div>
+    <div class="footer">Private & Confidential</div>
+  </div>
 </section>
 
 <!-- SLIDE 16: GLOBAL VISION -->
-<section class="slide bg-dark">
-    <div class="slide-content">
-        <span class="section-label reveal">Global Vision</span>
-        <h2 class="slide-title reveal">Cultural adaptation doesn't stop<br>at India's borders.</h2>
-        <div class="divider reveal"></div>
-        <div style="margin-top:var(--content-gap); max-width:700px;">
-            <p class="reveal" style="font-size:var(--body-size); color:rgba(255,255,255,0.6); line-height:1.7; margin-bottom:var(--content-gap);">India → the world's most culturally diverse market. Our proving ground.</p>
-            <p class="reveal" style="font-size:var(--body-size); color:#FFFFFF; line-height:1.7; margin-bottom:var(--content-gap);">If our AI navigates Haryanvi → Tamil → Bengali, it navigates any cultural boundary.</p>
-            <p class="reveal" style="font-size:var(--body-size); color:var(--red); font-weight:600; margin-bottom:var(--content-gap);">Southeast Asia · Sub-Saharan Africa · Latin America · Eastern Europe</p>
-            <p class="reveal" style="font-size:var(--body-size); color:rgba(255,255,255,0.5); font-style:italic;">India proves the model. The world is the destination. That's the Series D+ thesis.</p>
-        </div>
+<section class="slide bg-dark" data-slide="15">
+  <div class="slide-inner">
+    <img class="logo" src="https://media.stage.in/static/stage_logo_horizontal.webp" alt="STAGE">
+    <div class="content">
+      <span class="section-label reveal">Global Vision</span>
+      <h2 class="slide-title reveal">Cultural adaptation doesn't stop<br>at India's borders.</h2>
+      <div class="divider reveal"></div>
+      <div class="mt" style="max-width:75%;">
+        <p class="reveal body-text" style="color:rgba(255,255,255,0.5);margin-bottom:clamp(6px,1.2vh,16px);">India → the world's most culturally diverse market. Our proving ground.</p>
+        <p class="reveal body-text" style="color:#fff;margin-bottom:clamp(6px,1.2vh,16px);">If our AI navigates Haryanvi → Tamil → Bengali, it navigates any cultural boundary.</p>
+        <p class="reveal body-text" style="color:var(--red);font-weight:600;margin-bottom:clamp(6px,1.2vh,16px);">Southeast Asia · Sub-Saharan Africa · Latin America · Eastern Europe</p>
+        <p class="reveal body-text" style="color:rgba(255,255,255,0.4);font-style:italic;">India proves the model. The world is the destination. That's the Series D+ thesis.</p>
+      </div>
     </div>
-    <div class="slide-footer">Private & Confidential <span>16</span></div>
+    <div class="slide-num">16 / 19</div>
+    <div class="footer">Private & Confidential</div>
+  </div>
 </section>
 
 <!-- SLIDE 17: THE TEAM -->
-<section class="slide bg-white">
-    <div class="slide-content">
-        <span class="section-label reveal">The Team</span>
-        <h2 class="slide-title reveal">Built by Regional India,<br>for Regional India.</h2>
-        <div class="divider reveal"></div>
-        <div class="grid-4 reveal" style="margin-top:var(--content-gap);">
-            <div class="team-card"><div class="team-avatar">VS</div><div class="name">Vinay Singhal</div><div class="role">CEO</div><div class="desc">Village in Haryana.<br>Zero to ₹171.5Cr ARR.</div></div>
-            <div class="team-card"><div class="team-avatar">PS</div><div class="name">Parveen Singhal</div><div class="role">CCO</div><div class="desc">National Award-winning IP.<br>Forbes 30 Under 30 Asia.</div></div>
-            <div class="team-card"><div class="team-avatar">SV</div><div class="name">Shashank Vaishnav</div><div class="role">CTO</div><div class="desc">Built the entire AI stack.<br>1.85M subscribers served.</div></div>
-            <div class="team-card"><div class="team-avatar">HM</div><div class="name">Harsh Mani Tripathi</div><div class="role">Co-founder</div><div class="desc">Product & Operations.<br>BD & monetization.</div></div>
-        </div>
-        <div class="reveal" style="margin-top:var(--content-gap); text-align:center;">
-            <p style="font-size:var(--small-size); color:var(--text-secondary);">Board: Karthik Reddy (Blume) · Vivek Subramanian (Goodwater)</p>
-            <div class="callout" style="text-align:center; margin-top:var(--element-gap);"><strong style="color:var(--text-dark);">87 team members + hundreds of AI agents.</strong> Revenue scales faster than headcount. Existing investors confirmed participating.</div>
-        </div>
+<section class="slide bg-white" data-slide="16">
+  <div class="slide-inner">
+    <img class="logo" src="https://media.stage.in/static/stage_logo_stack.png" alt="STAGE">
+    <div class="content">
+      <span class="section-label reveal">The Team</span>
+      <h2 class="slide-title reveal">Built by Regional India,<br>for Regional India.</h2>
+      <div class="divider reveal"></div>
+      <div class="grid-4 mt reveal">
+        <div class="team-card"><div class="team-avatar">VS</div><div class="name">Vinay Singhal</div><div class="role">CEO</div><div class="desc">Village in Haryana.<br>Zero to ₹171.5Cr ARR.</div></div>
+        <div class="team-card"><div class="team-avatar">PS</div><div class="name">Parveen Singhal</div><div class="role">CCO</div><div class="desc">National Award-winning IP.<br>Forbes 30 Under 30 Asia.</div></div>
+        <div class="team-card"><div class="team-avatar">SV</div><div class="name">Shashank Vaishnav</div><div class="role">CTO</div><div class="desc">Built the entire AI stack.<br>1.85M subscribers served.</div></div>
+        <div class="team-card"><div class="team-avatar">HM</div><div class="name">Harsh Mani Tripathi</div><div class="role">Co-founder</div><div class="desc">Product & Operations.<br>BD & monetization.</div></div>
+      </div>
+      <div class="reveal mt" style="text-align:center;">
+        <p class="small-text">Board: Karthik Reddy (Blume) · Vivek Subramanian (Goodwater)</p>
+        <div class="callout mt-sm" style="text-align:center;"><strong style="color:var(--text);">87 team members + hundreds of AI agents.</strong> Revenue scales faster than headcount. Existing investors confirmed participating.</div>
+      </div>
     </div>
-    <div class="slide-footer">Private & Confidential <span>17</span></div>
+    <div class="slide-num">17 / 19</div>
+    <div class="footer">Private & Confidential</div>
+  </div>
 </section>
 
 <!-- SLIDE 18: THE ASK -->
-<section class="slide bg-blush">
-    <div class="slide-content">
-        <span class="section-label reveal">The Ask</span>
-        <h2 class="slide-title reveal">$25 million<br>to own cultural entertainment.</h2>
-        <div class="divider reveal"></div>
-        <div class="grid-3 reveal" style="margin-top:var(--element-gap);">
-            <div class="card card-accent" style="text-align:center;"><h3>🌍 10 New Markets</h3><p style="font-size:var(--label-size); color:var(--text-secondary);">Cultural adaptation<br>AI-powered launches</p></div>
-            <div class="card card-accent" style="text-align:center;"><h3>🧠 Technology Moat</h3><p style="font-size:var(--label-size); color:var(--text-secondary);">Agentic pipeline +<br>adaptation depth</p></div>
-            <div class="card card-accent" style="text-align:center;"><h3>👥 Team</h3><p style="font-size:var(--label-size); color:var(--text-secondary);">Scale to execute<br>14 markets</p></div>
-        </div>
-        <div class="reveal" style="margin-top:var(--content-gap);">
-            <div style="font-size:var(--h3-size); font-weight:700; margin-bottom:var(--element-gap);">12-Month Milestones</div>
-            <div class="milestone"><div class="check"></div>14 markets live (from 4)</div>
-            <div class="milestone"><div class="check"></div>Path to $100M+ ARR</div>
-            <div class="milestone"><div class="check"></div>4+ profitable markets (from 2)</div>
-            <div class="milestone"><div class="check"></div>Cultural adaptation across all major language families</div>
-            <div class="milestone"><div class="check"></div>24+ months runway</div>
-        </div>
-        <p class="reveal" style="font-size:var(--small-size); color:var(--text-secondary); margin-top:var(--element-gap); font-style:italic;">→ Positions us for a significantly larger Series D — taking cultural adaptation global.</p>
+<section class="slide bg-blush" data-slide="17">
+  <div class="slide-inner">
+    <img class="logo" src="https://media.stage.in/static/stage_logo_stack.png" alt="STAGE">
+    <div class="content">
+      <span class="section-label reveal">The Ask</span>
+      <h2 class="slide-title reveal">$25 million<br>to own cultural entertainment.</h2>
+      <div class="divider reveal"></div>
+      <div class="grid-3 mt reveal">
+        <div class="card card-accent" style="text-align:center;"><h3>🌍 10 New Markets</h3><p>Cultural adaptation<br>AI-powered launches</p></div>
+        <div class="card card-accent" style="text-align:center;"><h3>🧠 Technology Moat</h3><p>Agentic pipeline +<br>adaptation depth</p></div>
+        <div class="card card-accent" style="text-align:center;"><h3>👥 Team</h3><p>Scale to execute<br>14 markets</p></div>
+      </div>
+      <div class="reveal mt">
+        <div style="font-size:clamp(10px,1.3vh,16px);font-weight:700;margin-bottom:clamp(4px,0.6vh,8px);">12-Month Milestones</div>
+        <div class="milestone"><div class="check"></div>14 markets live (from 4)</div>
+        <div class="milestone"><div class="check"></div>Path to $100M+ ARR</div>
+        <div class="milestone"><div class="check"></div>4+ profitable markets (from 2)</div>
+        <div class="milestone"><div class="check"></div>Cultural adaptation across all major language families</div>
+        <div class="milestone"><div class="check"></div>24+ months runway</div>
+      </div>
+      <p class="reveal small-text mt-sm" style="font-style:italic;">→ Positions us for a significantly larger Series D — taking cultural adaptation global.</p>
     </div>
-    <div class="slide-footer">Private & Confidential <span>18</span></div>
+    <div class="slide-num">18 / 19</div>
+    <div class="footer">Private & Confidential</div>
+  </div>
 </section>
 
 <!-- SLIDE 19: CLOSING -->
-<section class="slide bg-dark closing-slide">
-    <div class="slide-content">
-        <div class="lines">
-            <div class="line large reveal">1.5 billion people.</div>
-            <div class="line medium reveal">No entertainment built for their cultures.</div>
-            <div class="line large reveal" style="margin-top:clamp(0.5rem,1vw,1rem);">We built it.</div>
-            <div class="line medium reveal">₹171.5Cr ARR. Two profitable markets. 92% retention.</div>
-            <div class="line large reveal" style="margin-top:clamp(0.5rem,1vw,1rem);">Then we cracked cultural transformation.</div>
-            <div class="line medium reveal">One click. Any culture. ₹8,000 per episode.</div>
-            <div class="line highlight reveal" style="margin-top:clamp(0.8rem,1.5vw,1.5rem);">4 → 14 markets. $20M → $100-200M ARR.</div>
-            <div class="line highlight reveal">$25 million. 14 markets. 12 months.</div>
-        </div>
-        <p class="thankyou reveal">Thank you.</p>
+<section class="slide bg-dark closing" data-slide="18">
+  <div class="slide-inner">
+    <img class="logo" src="https://media.stage.in/static/stage_logo_horizontal.webp" alt="STAGE">
+    <div class="content" style="justify-content:center;">
+      <div class="large reveal">1.5 billion people.</div>
+      <div class="medium reveal">No entertainment built for their cultures.</div>
+      <div class="large reveal" style="margin-top:clamp(8px,1.5vh,20px);">We built it.</div>
+      <div class="medium reveal">₹171.5Cr ARR. Two profitable markets. 92% retention.</div>
+      <div class="large reveal" style="margin-top:clamp(8px,1.5vh,20px);">Then we cracked cultural transformation.</div>
+      <div class="medium reveal">One click. Any culture. ₹8,000 per episode.</div>
+      <div class="highlight reveal" style="margin-top:clamp(12px,2vh,28px);">4 → 14 markets. $20M → $100-200M ARR.</div>
+      <div class="highlight reveal">$25 million. 14 markets. 12 months.</div>
+      <p class="thankyou reveal">Thank you.</p>
     </div>
+    <div class="slide-num">19 / 19</div>
+  </div>
 </section>
 
+</div><!-- /deck -->
+
+<!-- Progress bar -->
+<div class="nav-bar"><div class="nav-progress" id="progress"></div></div>
+
 <script>
-class SlidePresentation {
-    constructor() {
-        this.slides = document.querySelectorAll('.slide');
-        this.currentSlide = 0;
-        this.totalSlides = this.slides.length;
-        this.progressBar = document.getElementById('progressBar');
-        this.navDotsContainer = document.getElementById('navDots');
-        this.isNavigating = false;
-        this.createNavDots();
-        this.setupObserver();
-        this.setupKeyboard();
-        this.setupTouch();
-        this.setupHistory();
-        this.updateProgress();
+(function(){
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+  let current = 0;
+  let animating = false;
+  const progress = document.getElementById('progress');
+
+  function go(i){
+    if(i<0||i>=total||i===current||animating) return;
+    animating = true;
+    slides[current].classList.remove('active');
+    slides[i].classList.add('active');
+    current = i;
+    progress.style.width = ((current+1)/total*100)+'%';
+    history.pushState({slide:i},'',(i===0?'#':'#slide-'+(i+1)));
+    setTimeout(()=>{animating=false;},550);
+  }
+
+  // Keyboard
+  document.addEventListener('keydown', e=>{
+    if(['ArrowRight','ArrowDown',' ','PageDown'].includes(e.key)){e.preventDefault();go(current+1);}
+    else if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();go(current-1);}
+    else if(e.key==='Home'){e.preventDefault();go(0);}
+    else if(e.key==='End'){e.preventDefault();go(total-1);}
+  });
+
+  // Click: left half = prev, right half = next
+  document.addEventListener('click', e=>{
+    if(e.target.closest('a,button,input')) return;
+    if(e.clientX < window.innerWidth/3) go(current-1);
+    else go(current+1);
+  });
+
+  // Touch swipe
+  let sx=0,sy=0;
+  document.addEventListener('touchstart',e=>{sx=e.touches[0].clientX;sy=e.touches[0].clientY;});
+  document.addEventListener('touchend',e=>{
+    const dx=sx-e.changedTouches[0].clientX;
+    const dy=sy-e.changedTouches[0].clientY;
+    if(Math.abs(dx)>Math.abs(dy)&&Math.abs(dx)>40){
+      dx>0?go(current+1):go(current-1);
     }
-    createNavDots() {
-        this.slides.forEach((_, i) => {
-            const dot = document.createElement('button');
-            dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
-            dot.setAttribute('aria-label', `Slide ${i + 1}`);
-            dot.addEventListener('click', () => this.goToSlide(i));
-            this.navDotsContainer.appendChild(dot);
-        });
-    }
-    setupObserver() {
-        const obs = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    this.currentSlide = Array.from(this.slides).indexOf(entry.target);
-                    this.updateProgress();
-                    this.updateDots();
-                }
-            });
-        }, { threshold: 0.5 });
-        this.slides.forEach(s => obs.observe(s));
-    }
-    setupKeyboard() {
-        document.addEventListener('keydown', (e) => {
-            if (['ArrowDown','ArrowRight',' '].includes(e.key)) { e.preventDefault(); this.goToSlide(Math.min(this.currentSlide+1,this.totalSlides-1)); }
-            else if (['ArrowUp','ArrowLeft'].includes(e.key)) { e.preventDefault(); this.goToSlide(Math.max(this.currentSlide-1,0)); }
-        });
-    }
-    setupTouch() {
-        let sy=0;
-        document.addEventListener('touchstart', e => { sy=e.touches[0].clientY; });
-        document.addEventListener('touchend', e => {
-            const d=sy-e.changedTouches[0].clientY;
-            if(Math.abs(d)>50) { d>0 ? this.goToSlide(Math.min(this.currentSlide+1,this.totalSlides-1)) : this.goToSlide(Math.max(this.currentSlide-1,0)); }
-        });
-    }
-    goToSlide(i, pushHistory=true) { if(this.isNavigating) return; this.isNavigating=true; this.slides[i].scrollIntoView({behavior:'smooth'}); if(pushHistory && i!==this.currentSlide) history.pushState({slide:i},'',(i===0?'#':'#slide-'+(i+1))); setTimeout(()=>{this.isNavigating=false;},600); }
-    setupHistory() { window.addEventListener('popstate', e => { const i = e.state?.slide ?? 0; this.goToSlide(i, false); }); const h=location.hash.match(/slide-(\d+)/); if(h) { const i=parseInt(h[1])-1; if(i>=0&&i<this.totalSlides) this.goToSlide(i, false); } history.replaceState({slide:0},'','#'); }
-    updateProgress() { this.progressBar.style.width=((this.currentSlide+1)/this.totalSlides*100)+'%'; }
-    updateDots() { this.navDotsContainer.querySelectorAll('.nav-dot').forEach((d,i)=>d.classList.toggle('active',i===this.currentSlide)); }
-}
-new SlidePresentation();
+  });
+
+  // Mouse wheel
+  let wheelTimeout;
+  document.addEventListener('wheel',e=>{
+    e.preventDefault();
+    if(wheelTimeout) return;
+    wheelTimeout = setTimeout(()=>{wheelTimeout=null;},600);
+    e.deltaY>0?go(current+1):go(current-1);
+  },{passive:false});
+
+  // History
+  window.addEventListener('popstate',e=>{
+    const i=e.state?.slide??0;
+    slides[current].classList.remove('active');
+    slides[i].classList.add('active');
+    current=i;
+    progress.style.width=((current+1)/total*100)+'%';
+  });
+
+  // Hash on load
+  const h=location.hash.match(/slide-(\d+)/);
+  if(h){const i=parseInt(h[1])-1;if(i>0&&i<total){slides[0].classList.remove('active');slides[i].classList.add('active');current=i;}}
+  history.replaceState({slide:current},'','#');
+  progress.style.width=((current+1)/total*100)+'%';
+})();
 </script>
 </body>
 </html>
