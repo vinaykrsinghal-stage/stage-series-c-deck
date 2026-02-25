@@ -27,6 +27,7 @@
   --font:'Montserrat',sans-serif;
 }
 html,body{height:100%;overflow:hidden;font-family:var(--font);background:#000;-webkit-font-smoothing:antialiased;}
+/* Letterbox bars are black, slide backgrounds show in 16:9 area */
 
 /* ===== DECK CONTAINER ===== */
 .deck{position:relative;width:100vw;height:100vh;overflow:hidden;}
@@ -46,7 +47,7 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:#000;-w
   top:50%;left:50%;transform:translate(-50%,-50%);
   width:min(100vw, 177.78vh);
   height:min(100vh, 56.25vw);
-  padding:3.5% 5%;
+  padding:5% 7%;
   display:flex;flex-direction:column;
   overflow:hidden;
 }
@@ -67,7 +68,7 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:#000;-w
 
 /* ===== LOGO ===== */
 .logo{height:clamp(20px,2.2vh,32px);position:absolute;top:3.5%;left:5%;z-index:2;opacity:0.7;}
-.bg-dark .logo{filter:brightness(10);}/* make icon visible on dark */
+/* dark slides use horizontal logo directly */
 
 /* ===== TYPOGRAPHY ===== */
 .section-label{
@@ -228,9 +229,9 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:#000;-w
 }
 .hero-badges{display:flex;gap:clamp(6px,1vh,14px);margin-top:clamp(10px,2vh,24px);}
 .hero-badge{
-  font-size:clamp(8px,1vh,12px);font-weight:600;color:var(--red);
-  background:rgba(225,13,56,0.1);padding:clamp(3px,0.4vh,6px) clamp(8px,1vh,14px);
-  border-radius:4px;border:1px solid rgba(225,13,56,0.2);
+  font-size:clamp(10px,1.3vh,15px);font-weight:600;color:var(--red);
+  background:rgba(225,13,56,0.12);padding:clamp(5px,0.7vh,10px) clamp(12px,1.5vh,20px);
+  border-radius:6px;border:1px solid rgba(225,13,56,0.25);
 }
 
 /* ===== CLOSING ===== */
@@ -255,6 +256,12 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:#000;-w
 /* Content wrapper to push content below logo */
 .content{flex:1;display:flex;flex-direction:column;justify-content:center;padding-top:clamp(16px,2.5vh,36px);}
 
+/* Title slide centering */
+.slide.title-slide .content{align-items:center;text-align:center;}
+.slide.title-slide .hero-title{text-align:center;}
+.slide.title-slide .tagline{text-align:center;}
+.slide.title-slide .hero-badges{justify-content:center;}
+
 /* Flex spacer */
 .spacer{flex:1;}
 </style>
@@ -264,11 +271,11 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:#000;-w
 <div class="deck" id="deck">
 
 <!-- SLIDE 1: TITLE -->
-<section class="slide bg-dark active" data-slide="0">
+<section class="slide bg-dark title-slide active" data-slide="0">
   <div class="slide-inner">
-    <img class="logo" src="https://media.stage.in/static/stage_logo_horizontal.webp" alt="STAGE">
-    <div class="content" style="justify-content:center;">
-      <h1 class="hero-title reveal">AI-Native Entertainment<br>for Every Human,<br>in <span class="accent">Their Culture.</span></h1>
+    <div class="content" style="justify-content:center;align-items:center;">
+      <img src="https://media.stage.in/static/stage_logo_horizontal.webp" alt="STAGE" style="height:clamp(28px,4vh,50px);margin-bottom:clamp(12px,2.5vh,32px);opacity:0.9;" class="reveal">
+      <h1 class="hero-title reveal" style="font-size:clamp(28px,5.5vh,68px);">AI-Native Entertainment<br>for Every Human,<br>in <span class="accent">Their Culture.</span></h1>
       <div class="hero-badges reveal">
         <span class="hero-badge">AI-Native</span>
         <span class="hero-badge">Proven Unit Economics</span>
@@ -715,7 +722,7 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:#000;-w
 <section class="slide bg-dark closing" data-slide="18">
   <div class="slide-inner">
     <img class="logo" src="https://media.stage.in/static/stage_logo_horizontal.webp" alt="STAGE">
-    <div class="content" style="justify-content:center;">
+    <div class="content" style="justify-content:center;align-items:center;text-align:center;">
       <div class="large reveal">1.5 billion people.</div>
       <div class="medium reveal">No entertainment built for their cultures.</div>
       <div class="large reveal" style="margin-top:clamp(8px,1.5vh,20px);">We built it.</div>
